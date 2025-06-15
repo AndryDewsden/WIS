@@ -185,7 +185,7 @@ namespace WIS.Pages
                 {
                     existingUser.user_firstname = row["user_firstname"].ToString();
                     existingUser.user_lastname = row["user_lastname"].ToString();
-                    existingUser.user_password_hash = row["user_password_hash"].ToString();
+                    existingUser.user_password_hash = HashHelper.HexStringToByteArray(row["user_password_hash"].ToString());
                     existingUser.user_email = row["user_email"].ToString();
                     existingUser.user_role_ID = newRoleId;
                 }
@@ -196,7 +196,7 @@ namespace WIS.Pages
                         user_firstname = row["user_firstname"].ToString(),
                         user_lastname = row["user_lastname"].ToString(),
                         user_login = login,
-                        user_password_hash = row["user_password_hash"].ToString(),
+                        user_password_hash = HashHelper.HexStringToByteArray(row["user_password_hash"].ToString()),
                         user_email = row["user_email"].ToString(),
                         user_role_ID = newRoleId
                     };

@@ -25,7 +25,6 @@ namespace WIS.Pages
 {
     public partial class StickerGeneratorPage : Page
     {
-        private WIS_Users currentUser;
         private readonly string LogoPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SystemImages", "icon_black.png");
         private const double MmToPt = 2.83465;
         private const double LabelWidthMm = 60;

@@ -223,7 +223,7 @@ namespace WIS.Pages
                     user_lastname = LastNameTextBox.Text,
                     user_login = LoginTextBox.Text,
                     user_email = EmailTextBox.Text,
-                    user_password_hash = HashHelper.ComputeSha256Hash(PasswordBox.Password),
+                    user_password_hash = HashHelper.ComputeSha256HashBytes(PasswordBox.Password),
                     user_role_ID = roleId,
                     user_department = DepartmentTextBox.Text
                 };
@@ -269,7 +269,7 @@ namespace WIS.Pages
 
                 if (!string.IsNullOrEmpty(PasswordBox.Password))
                 {
-                    selectedUser.user_password_hash = HashHelper.ComputeSha256Hash(PasswordBox.Password);
+                    selectedUser.user_password_hash = HashHelper.ComputeSha256HashBytes(PasswordBox.Password);
                 }
 
                 selectedUser.user_firstname = FirstNameTextBox.Text;

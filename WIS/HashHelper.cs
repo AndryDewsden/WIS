@@ -11,19 +11,34 @@ namespace WIS
     {
         public static string ComputeSha256Hash(string rawData)
         {
-            using (SHA256 sha256Hash = SHA256.Create())
+            using (var sha256 = SHA256.Create())
             {
-                // Преобразуем строку в байты и вычисляем хеш
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+                return BitConverter.ToString(bytes).Replace("-", "").ToLower();
+            }
+        }
 
-                // Преобразуем байты в строку (hex)
-                StringBuilder builder = new StringBuilder();
-                foreach (var b in bytes)
-                {
-                    builder.Append(b.ToString("x2")); // hex формат
-                }
+        public static byte[] HexStringToByteArray(string hex)
+        {
+            if (string.IsNullOrWhiteSpace(hex))
+                return Array.Empty<byte>();
 
-                return builder.ToString();
+            int length = hex.Length;
+            byte[] bytes = new byte[length / 2];
+
+            for (int i = 0; i < length; i += 2)
+            {
+                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+            }
+
+            return bytes;
+        }
+
+        public static byte[] ComputeSha256HashBytes(string rawData)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                return sha256.ComputeHash(Encoding.UTF8.GetBytes(rawData));
             }
         }
     }

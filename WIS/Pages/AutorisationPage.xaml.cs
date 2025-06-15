@@ -94,8 +94,7 @@ namespace WIS.Pages
                 // Хешируем введённый пароль
                 string passwordHash = HashHelper.ComputeSha256Hash(password);
 
-                // Сравниваем с хешем в базе
-                var userObj = AppConnect.Model.WIS_Users.FirstOrDefault(x => x.user_login.Trim().ToLower() == login.ToLower() && x.user_password_hash == passwordHash);
+                var userObj = AppConnect.Model.WIS_Users.FirstOrDefault(x => x.user_login.Trim().ToLower() == login.ToLower() && BitConverter.ToString(x.user_password_hash).Replace("-", "").ToLower() == passwordHash);
 
                 if (userObj == null)
                 {
