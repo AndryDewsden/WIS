@@ -1,0 +1,92 @@
+﻿<Window x:Class="WIS.Pages.RequestCreateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:conv="clr-namespace:WIS.Converters"
+        Title="Создание заявки"
+        MaxHeight="400" Width="500"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F8FF"
+        ResizeMode="NoResize"
+        Icon="/SystemImages/icon_blue.png">
+    
+    <Window.Resources>
+        <conv:AssetTypeIdToImageConverter x:Key="AssetTypeImageConverter"/>
+    </Window.Resources>
+    
+    <Border BorderBrush="#4682B4" BorderThickness="1" CornerRadius="5" Padding="15" Margin="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Тип оборудования -->
+            <TextBlock Text="Тип оборудования:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,10"/>
+            <ComboBox x:Name="cbAssetTypes" ItemsSource="{Binding}" SelectedIndex="-1" Grid.Row="0" Grid.Column="1" SelectionChanged="cbAssetTypes_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding ID_asset_type, Converter={StaticResource AssetTypeImageConverter}}" Width="25" Height="20" Margin="0,0,10,0"/>
+                            <TextBlock Text="{Binding asset_type_name}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock x:Name="txtAvailableCount" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" Foreground="Gray" FontStyle="Italic" FontSize="12"/>
+
+            <!-- Оборудование -->
+            <TextBlock Text="Оборудование:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,10"/>
+            <ComboBox x:Name="cbAssets"
+          Grid.Row="2" Grid.Column="1"
+          Height="30" Margin="0,0,0,10"
+          DisplayMemberPath="DisplayName"
+          SelectionChanged="cbAssets_SelectionChanged">
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsAvailable}" Value="False">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+            </ComboBox>
+
+            <!-- Информация об оборудовании -->
+            <TextBlock x:Name="txtAssetInfo"
+           Grid.Row="3" Grid.Column="1"
+           Margin="0,5,0,10"
+           Foreground="DarkSlateGray"
+           FontSize="12"
+           TextWrapping="Wrap"/>
+
+            <!-- Комментарий -->
+            <TextBlock Text="Комментарий:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" Margin="0,0,10,10"/>
+            <TextBox x:Name="txtNote" Grid.Row="4" Grid.Column="1" Height="80" Margin="0,0,0,10"
+                     TextWrapping="Wrap" AcceptsReturn="True"
+                     Style="{StaticResource InputFieldStyle}" />
+
+            <!-- Кнопки -->
+            <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                <Button x:Name="btnCancel" Content="Отмена" Width="100" Margin="0,0,10,0"
+                        Style="{StaticResource CustomButtonStyle}"
+                        Click="btnCancel_Click"/>
+                <Button x:Name="btnCreate" Content="Создать" Width="100"
+                        Style="{StaticResource CustomButtonStyle}"
+                        Click="btnCreate_Click"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

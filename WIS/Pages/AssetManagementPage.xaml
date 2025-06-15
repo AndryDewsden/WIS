@@ -1,0 +1,136 @@
+﻿<Page x:Class="WIS.Pages.AssetManagementPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="Управление активами"
+      Background="#F0F8FF">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Text="Управление активами"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="#2F4F4F"
+                   Margin="0,0,0,10"/>
+
+        <!-- Таблица -->
+        <DataGrid x:Name="AssetsDataGrid"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  SelectionMode="Single"
+                  IsReadOnly="True"
+                  Margin="0,0,0,10"
+                  SelectionChanged="AssetsDataGrid_SelectionChanged"
+                  RowBackground="White"
+                  AlternatingRowBackground="#F9F9F9"
+                  GridLinesVisibility="Horizontal"
+                  HeadersVisibility="Column"
+                  BorderBrush="#4682B4"
+                  BorderThickness="1"
+                  FontSize="14">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID_asset}" Width="Auto"/>
+                <DataGridTextColumn Header="Название" Binding="{Binding asset_name}" Width="*"/>
+                <DataGridTextColumn Header="Модель" Binding="{Binding asset_model}" Width="*"/>
+                <DataGridTextColumn Header="Серийный номер" Binding="{Binding asset_serial_number}" Width="*"/>
+                <DataGridTextColumn Header="Дата покупки" Binding="{Binding asset_purchase_date, StringFormat=d}" Width="Auto"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding asset_purchase_price, StringFormat=C}" Width="Auto"/>
+                <DataGridTextColumn Header="Гарантия до" Binding="{Binding asset_warranty_expiration_date, StringFormat=d}" Width="Auto"/>
+                <DataGridTextColumn Header="Примечание" Binding="{Binding asset_note}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Панель управления -->
+        <Border Grid.Row="2" Background="#E6F0FA" CornerRadius="5" Padding="10">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,10">
+                    <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                        <TextBlock Text="Название:"/>
+                        <TextBox x:Name="NameTextBox" Width="140" Style="{StaticResource InputFieldStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                        <TextBlock Text="Модель:"/>
+                        <TextBox x:Name="ModelTextBox" Width="140" Style="{StaticResource InputFieldStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                        <TextBlock Text="Серийный номер:"/>
+                        <TextBox x:Name="SerialTextBox" Width="140" Style="{StaticResource InputFieldStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                        <TextBlock Text="Тип:"/>
+                        <ComboBox x:Name="TypeComboBox" Width="150"
+                                  DisplayMemberPath="asset_type_name"
+                                  SelectedValuePath="ID_asset_type"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                        <TextBlock Text="Статус:"/>
+                        <ComboBox x:Name="StatusComboBox" Width="150"
+                                  DisplayMemberPath="status_name"
+                                  SelectedValuePath="ID_asset_status"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                        <TextBlock Text="Локация:"/>
+                        <ComboBox x:Name="LocationComboBox" Width="150"
+                                  DisplayMemberPath="location_name"
+                                  SelectedValuePath="ID_asset_location"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                        <TextBlock Text="Пользователь:"/>
+                        <ComboBox x:Name="UserComboBox" Width="150"
+                                  DisplayMemberPath="user_firstname"
+                                  SelectedValuePath="ID_user"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                        <TextBlock Text="Дата покупки:"/>
+                        <DatePicker x:Name="PurchaseDatePicker" Width="150"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                        <TextBlock Text="Цена:"/>
+                        <TextBox x:Name="PriceTextBox" Width="100" Style="{StaticResource InputFieldStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                        <TextBlock Text="Гарантия до:"/>
+                        <DatePicker x:Name="WarrantyDatePicker" Width="150"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                        <TextBlock Text="Примечание:"/>
+                        <TextBox x:Name="NoteTextBox" Width="200" Height="60"
+                                 AcceptsReturn="True" TextWrapping="Wrap"
+                                 Style="{StaticResource InputFieldStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="5,0,0,0">
+                        <Button x:Name="AddAssetButton" Content="Добавить" Width="80" Margin="0,0,0,5"
+                                Style="{StaticResource CustomButtonStyle}" Click="AddAssetButton_Click"/>
+                        <Button x:Name="UpdateAssetButton" Content="Обновить" Width="80" Margin="0,0,0,5"
+                                Style="{StaticResource CustomButtonStyle}" Click="UpdateAssetButton_Click"/>
+                        <Button x:Name="DeleteAssetButton" Content="Удалить" Width="80"
+                                Style="{StaticResource CustomButtonStyle}" Click="DeleteAssetButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

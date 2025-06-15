@@ -1,0 +1,179 @@
+﻿<Page x:Class="WIS.Pages.RequestPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WIS.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Заявки на оборудование">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#4682B4" CornerRadius="5" Margin="10,5" Padding="5">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <Grid Width="250" Margin="5,0">
+                        <TextBox x:Name="Searcher" VerticalContentAlignment="Center" Style="{StaticResource {x:Type TextBox}}" Margin="5,0,0,0" TextChanged="Searcher_TextChanged" LostFocus="Searcher_LostFocus"/>
+                        <TextBox x:Name="SearcherPlaceHolder" Text="Поиск..." Foreground="Gray" IsHitTestVisible="True" VerticalContentAlignment="Center" Margin="5,0,0,0" GotFocus="SearcherPlaceHolder_GotFocus"/>
+                    </Grid>
+
+                    <ComboBox x:Name="Filter" Width="250" Margin="5,0"
+                          Style="{StaticResource {x:Type ComboBox}}"
+                          SelectedIndex="0" SelectionChanged="Filter_SelectionChanged">
+                        <ComboBoxItem>Все заявки</ComboBoxItem>
+                        <ComboBoxItem>Новые</ComboBoxItem>
+                        <ComboBoxItem>Одобренные</ComboBoxItem>
+                        <ComboBoxItem>Отклоненные</ComboBoxItem>
+                        <ComboBoxItem>Мои заявки</ComboBoxItem>
+                    </ComboBox>
+
+                    <TextBlock Text="Фильтр по дате:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <ComboBox x:Name="DateFilterType" Width="150" Margin="0,0,10,0" SelectedIndex="0" SelectionChanged="DateFilterType_SelectionChanged">
+                        <ComboBoxItem Content="Дата создания"/>
+                        <ComboBoxItem Content="Дата одобрения"/>
+                    </ComboBox>
+
+                    <Button Content="Сбросить фильтр" Click="ResetFilter_Click" />
+
+                    <TextBlock x:Name="Counter" Margin="10,0" Foreground="White" 
+                           VerticalAlignment="Center" FontSize="14"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Основное содержимое -->
+        <Grid Grid.Row="1" Margin="10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Боковая панель управления -->
+            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,10,0">
+                <Button x:Name="userDisplay" Content="Профиль" 
+                        Style="{StaticResource CustomButtonStyle}"
+                        Margin="0,5" Click="userDisplay_Click"/>
+
+                <Button x:Name="addButton" Content="Создать заявку" 
+                        Style="{StaticResource CustomButtonStyle}"
+                        Margin="0,5" Click="addButton_Click"/>
+
+                <Button x:Name="approveButton" Content="Одобрить" 
+                        Style="{StaticResource CustomButtonStyle}"
+                        Margin="0,5" Click="approveButton_Click" Visibility="Collapsed"/>
+
+                <Button x:Name="rejectButton" Content="Отклонить" 
+                        Style="{StaticResource CustomButtonStyle}"
+                        Margin="0,5" Click="rejectButton_Click" Visibility="Collapsed"/>
+
+                <Button x:Name="bt_go_assets" Content="Оборудование" 
+                        Style="{StaticResource CustomButtonStyle}"
+                        Margin="0,5" Click="bt_go_assets_Click"/>
+            </StackPanel>
+
+            <!-- Список заявок -->
+            <ListView x:Name="listRequests" Grid.Column="1" 
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  Background="White" BorderBrush="#4682B4" BorderThickness="1"
+                  MouseDoubleClick="listRequests_MouseDoubleClick">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="0,0,0,5"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E6F2FF"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding request_status_ID}" Value="1">
+                                <Setter Property="Background" Value="#FFF0F0"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding request_status_ID}" Value="2">
+                                <Setter Property="Background" Value="#F0FFF0"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding request_status_ID}" Value="3">
+                                <Setter Property="Background" Value="#FFF0F0"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="0,0,0,1" BorderBrush="#4682B4" Padding="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock FontWeight="Bold" Text="{Binding WIS_Assets.asset_name}"/>
+                                    <TextBlock>
+                                        <Run Text="Тип: " FontWeight="Bold"/>
+                                        <Run Text="{Binding WIS_Assets.WIS_Asset_Types.asset_type_name}"/>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <Run Text="Серийный №: " FontWeight="Bold"/>
+                                        <Run Text="{Binding WIS_Assets.asset_serial_number}"/>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock>
+                                        <Run Text="Статус: " FontWeight="Bold"/>
+                                        <Run Text="{Binding WIS_Request_Statuses.status_name}"/>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <Run Text="Дата: " FontWeight="Bold"/>
+                                        <Run Text="{Binding request_date, StringFormat={}{0:dd.MM.yyyy HH:mm}}"/>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <Run Text="Одобрил: " FontWeight="Bold"/>
+                                        <Run Text="{Binding WIS_Users.user_firstname}" />
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <Run Text="Дата одобрения: " FontWeight="Bold"/>
+                                        <Run Text="{Binding request_approval_date, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock>
+                                        <Run Text="Сотрудник: " FontWeight="Bold"/>
+                                        <Run Text="{Binding WIS_Users.user_firstname}"/>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <Run Text="Отдел: " FontWeight="Bold"/>
+                                        <Run Text="{Binding WIS_Users.user_department}"/>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="3">
+                                    <TextBlock TextWrapping="Wrap">
+                                        <Run Text="Комментарий: " FontWeight="Bold"/>
+                                        <Run Text="{Binding request_note}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="addConMenu" Header="Создать заявку" Click="addConMenu_Click"/>
+                        <MenuItem x:Name="approveConMenu" Header="Одобрить" Click="approveConMenu_Click" Visibility="Collapsed"/>
+                        <MenuItem x:Name="rejectConMenu" Header="Отклонить" Click="rejectConMenu_Click" Visibility="Collapsed"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

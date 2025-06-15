@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bdd8eac815674462a73bd93b08ce420a" Name="Diagram1">
+        <EntityTypeShape EntityType="WIS_databaseModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WIS_databaseModel.WIS_Asset_Disposals" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WIS_databaseModel.WIS_Asset_Histories" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WIS_databaseModel.WIS_Asset_Locations" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WIS_databaseModel.WIS_Asset_Statuses" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WIS_databaseModel.WIS_Asset_Types" Width="1.5" PointX="3" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="WIS_databaseModel.WIS_Assets" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WIS_databaseModel.WIS_Report_Types" Width="1.5" PointX="3" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WIS_databaseModel.WIS_Reports" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WIS_databaseModel.WIS_Request_Statuses" Width="1.5" PointX="5.25" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WIS_databaseModel.WIS_Requests" Width="1.5" PointX="7.5" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WIS_databaseModel.WIS_User_Roles" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WIS_databaseModel.WIS_Users" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Asset_Disposals_WIS_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Asset_Disposals_WIS_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Asset_Historys_WIS_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Asset_Historys_WIS_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Assets_WIS_Asset_Locations" ManuallyRouted="false" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Assets_WIS_Asset_Statuses" ManuallyRouted="false" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Assets_WIS_Asset_Types" ManuallyRouted="false" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Assets_WIS_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Requests_WIS_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Reports_WIS_Report_Types" ManuallyRouted="false" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Reports_WIS_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Requests_WIS_Request_Statuses" ManuallyRouted="false" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Requests_WIS_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Requests_WIS_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="WIS_databaseModel.FK_WIS_Users_WIS_User_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,1072 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище WIS_databaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="WIS_Asset_Disposals">
+          <Key>
+            <PropertyRef Name="ID_disposal" />
+          </Key>
+          <Property Name="ID_disposal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="disposal_asset_ID" Type="int" Nullable="false" />
+          <Property Name="disposal_date" Type="date" Nullable="false" />
+          <Property Name="disposal_reason" Type="nvarchar" MaxLength="250" />
+          <Property Name="disposal_user_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WIS_Asset_Histories">
+          <Key>
+            <PropertyRef Name="ID_asset_history" />
+          </Key>
+          <Property Name="ID_asset_history" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="history_asset_ID" Type="int" Nullable="false" />
+          <Property Name="history_event_date" Type="datetime" Nullable="false" />
+          <Property Name="history_event_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="history_description" Type="nvarchar" MaxLength="50" />
+          <Property Name="history_user_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WIS_Asset_Locations">
+          <Key>
+            <PropertyRef Name="ID_asset_location" />
+          </Key>
+          <Property Name="ID_asset_location" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="location_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="location_note" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WIS_Asset_Statuses">
+          <Key>
+            <PropertyRef Name="ID_asset_status" />
+          </Key>
+          <Property Name="ID_asset_status" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WIS_Asset_Types">
+          <Key>
+            <PropertyRef Name="ID_asset_type" />
+          </Key>
+          <Property Name="ID_asset_type" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="asset_type_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WIS_Assets">
+          <Key>
+            <PropertyRef Name="ID_asset" />
+          </Key>
+          <Property Name="ID_asset" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="asset_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="asset_model" Type="nvarchar" MaxLength="50" />
+          <Property Name="asset_serial_number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="asset_type_ID" Type="int" Nullable="false" />
+          <Property Name="asset_purchase_date" Type="date" />
+          <Property Name="asset_purchase_price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="asset_warranty_expiration_date" Type="date" />
+          <Property Name="asset_note" Type="nvarchar" MaxLength="250" />
+          <Property Name="asset_status_ID" Type="int" Nullable="false" />
+          <Property Name="asset_location_ID" Type="int" />
+          <Property Name="asset_user_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="WIS_Report_Types">
+          <Key>
+            <PropertyRef Name="ID_report_type" />
+          </Key>
+          <Property Name="ID_report_type" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="report_type_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WIS_Reports">
+          <Key>
+            <PropertyRef Name="ID_report" />
+          </Key>
+          <Property Name="ID_report" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="report_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="report_type_ID" Type="int" Nullable="false" />
+          <Property Name="report_creation_date" Type="datetime" Nullable="false" />
+          <Property Name="report_user_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WIS_Request_Statuses">
+          <Key>
+            <PropertyRef Name="ID_request_status" />
+          </Key>
+          <Property Name="ID_request_status" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="request_status_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WIS_Requests">
+          <Key>
+            <PropertyRef Name="ID_request" />
+          </Key>
+          <Property Name="ID_request" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="request_asset_ID" Type="int" Nullable="false" />
+          <Property Name="request_user_ID" Type="int" Nullable="false" />
+          <Property Name="request_date" Type="datetime" Nullable="false" />
+          <Property Name="request_status_ID" Type="int" Nullable="false" />
+          <Property Name="request_approved_by_user_ID" Type="int" />
+          <Property Name="request_approval_date" Type="datetime" />
+          <Property Name="request_note" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="WIS_User_Roles">
+          <Key>
+            <PropertyRef Name="ID_user_role" />
+          </Key>
+          <Property Name="ID_user_role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_role_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WIS_Users">
+          <Key>
+            <PropertyRef Name="ID_user" />
+          </Key>
+          <Property Name="ID_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_lastname" Type="nvarchar" MaxLength="50" />
+          <Property Name="user_login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_password_hash" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="user_email" Type="varchar" MaxLength="50" />
+          <Property Name="user_role_ID" Type="int" Nullable="false" />
+          <Property Name="user_department" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_WIS_Asset_Disposals_WIS_Assets">
+          <End Role="WIS_Assets" Type="Self.WIS_Assets" Multiplicity="1" />
+          <End Role="WIS_Asset_Disposals" Type="Self.WIS_Asset_Disposals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Assets">
+              <PropertyRef Name="ID_asset" />
+            </Principal>
+            <Dependent Role="WIS_Asset_Disposals">
+              <PropertyRef Name="disposal_asset_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Asset_Disposals_WIS_Users">
+          <End Role="WIS_Users" Type="Self.WIS_Users" Multiplicity="1" />
+          <End Role="WIS_Asset_Disposals" Type="Self.WIS_Asset_Disposals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="WIS_Asset_Disposals">
+              <PropertyRef Name="disposal_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Asset_Historys_WIS_Assets">
+          <End Role="WIS_Assets" Type="Self.WIS_Assets" Multiplicity="1" />
+          <End Role="WIS_Asset_Histories" Type="Self.WIS_Asset_Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Assets">
+              <PropertyRef Name="ID_asset" />
+            </Principal>
+            <Dependent Role="WIS_Asset_Histories">
+              <PropertyRef Name="history_asset_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Asset_Historys_WIS_Users">
+          <End Role="WIS_Users" Type="Self.WIS_Users" Multiplicity="1" />
+          <End Role="WIS_Asset_Histories" Type="Self.WIS_Asset_Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="WIS_Asset_Histories">
+              <PropertyRef Name="history_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Assets_WIS_Asset_Locations">
+          <End Role="WIS_Asset_Locations" Type="Self.WIS_Asset_Locations" Multiplicity="0..1" />
+          <End Role="WIS_Assets" Type="Self.WIS_Assets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Asset_Locations">
+              <PropertyRef Name="ID_asset_location" />
+            </Principal>
+            <Dependent Role="WIS_Assets">
+              <PropertyRef Name="asset_location_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Assets_WIS_Asset_Statuses">
+          <End Role="WIS_Asset_Statuses" Type="Self.WIS_Asset_Statuses" Multiplicity="1" />
+          <End Role="WIS_Assets" Type="Self.WIS_Assets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Asset_Statuses">
+              <PropertyRef Name="ID_asset_status" />
+            </Principal>
+            <Dependent Role="WIS_Assets">
+              <PropertyRef Name="asset_status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Assets_WIS_Asset_Types">
+          <End Role="WIS_Asset_Types" Type="Self.WIS_Asset_Types" Multiplicity="1" />
+          <End Role="WIS_Assets" Type="Self.WIS_Assets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Asset_Types">
+              <PropertyRef Name="ID_asset_type" />
+            </Principal>
+            <Dependent Role="WIS_Assets">
+              <PropertyRef Name="asset_type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Assets_WIS_Users">
+          <End Role="WIS_Users" Type="Self.WIS_Users" Multiplicity="0..1" />
+          <End Role="WIS_Assets" Type="Self.WIS_Assets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="WIS_Assets">
+              <PropertyRef Name="asset_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Reports_WIS_Report_Types">
+          <End Role="WIS_Report_Types" Type="Self.WIS_Report_Types" Multiplicity="1" />
+          <End Role="WIS_Reports" Type="Self.WIS_Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Report_Types">
+              <PropertyRef Name="ID_report_type" />
+            </Principal>
+            <Dependent Role="WIS_Reports">
+              <PropertyRef Name="report_type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Reports_WIS_Users1">
+          <End Role="WIS_Users" Type="Self.WIS_Users" Multiplicity="1" />
+          <End Role="WIS_Reports" Type="Self.WIS_Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="WIS_Reports">
+              <PropertyRef Name="report_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Requests_WIS_Assets">
+          <End Role="WIS_Assets" Type="Self.WIS_Assets" Multiplicity="1" />
+          <End Role="WIS_Requests" Type="Self.WIS_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Assets">
+              <PropertyRef Name="ID_asset" />
+            </Principal>
+            <Dependent Role="WIS_Requests">
+              <PropertyRef Name="request_asset_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Requests_WIS_Request_Statuses">
+          <End Role="WIS_Request_Statuses" Type="Self.WIS_Request_Statuses" Multiplicity="1" />
+          <End Role="WIS_Requests" Type="Self.WIS_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Request_Statuses">
+              <PropertyRef Name="ID_request_status" />
+            </Principal>
+            <Dependent Role="WIS_Requests">
+              <PropertyRef Name="request_status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Requests_WIS_Users">
+          <End Role="WIS_Users" Type="Self.WIS_Users" Multiplicity="1" />
+          <End Role="WIS_Requests" Type="Self.WIS_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="WIS_Requests">
+              <PropertyRef Name="request_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Requests_WIS_Users1">
+          <End Role="WIS_Users" Type="Self.WIS_Users" Multiplicity="0..1" />
+          <End Role="WIS_Requests" Type="Self.WIS_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="WIS_Requests">
+              <PropertyRef Name="request_approved_by_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Users_WIS_User_Roles">
+          <End Role="WIS_User_Roles" Type="Self.WIS_User_Roles" Multiplicity="1" />
+          <End Role="WIS_Users" Type="Self.WIS_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_User_Roles">
+              <PropertyRef Name="ID_user_role" />
+            </Principal>
+            <Dependent Role="WIS_Users">
+              <PropertyRef Name="user_role_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Хранилище WIS_databaseModelContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WIS_Asset_Disposals" EntityType="Self.WIS_Asset_Disposals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WIS_Asset_Histories" EntityType="Self.WIS_Asset_Histories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WIS_Asset_Locations" EntityType="Self.WIS_Asset_Locations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WIS_Asset_Statuses" EntityType="Self.WIS_Asset_Statuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WIS_Asset_Types" EntityType="Self.WIS_Asset_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WIS_Assets" EntityType="Self.WIS_Assets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WIS_Report_Types" EntityType="Self.WIS_Report_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WIS_Reports" EntityType="Self.WIS_Reports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WIS_Request_Statuses" EntityType="Self.WIS_Request_Statuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WIS_Requests" EntityType="Self.WIS_Requests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WIS_User_Roles" EntityType="Self.WIS_User_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WIS_Users" EntityType="Self.WIS_Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_WIS_Asset_Disposals_WIS_Assets" Association="Self.FK_WIS_Asset_Disposals_WIS_Assets">
+            <End Role="WIS_Assets" EntitySet="WIS_Assets" />
+            <End Role="WIS_Asset_Disposals" EntitySet="WIS_Asset_Disposals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Asset_Disposals_WIS_Users" Association="Self.FK_WIS_Asset_Disposals_WIS_Users">
+            <End Role="WIS_Users" EntitySet="WIS_Users" />
+            <End Role="WIS_Asset_Disposals" EntitySet="WIS_Asset_Disposals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Asset_Historys_WIS_Assets" Association="Self.FK_WIS_Asset_Historys_WIS_Assets">
+            <End Role="WIS_Assets" EntitySet="WIS_Assets" />
+            <End Role="WIS_Asset_Histories" EntitySet="WIS_Asset_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Asset_Historys_WIS_Users" Association="Self.FK_WIS_Asset_Historys_WIS_Users">
+            <End Role="WIS_Users" EntitySet="WIS_Users" />
+            <End Role="WIS_Asset_Histories" EntitySet="WIS_Asset_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Assets_WIS_Asset_Locations" Association="Self.FK_WIS_Assets_WIS_Asset_Locations">
+            <End Role="WIS_Asset_Locations" EntitySet="WIS_Asset_Locations" />
+            <End Role="WIS_Assets" EntitySet="WIS_Assets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Assets_WIS_Asset_Statuses" Association="Self.FK_WIS_Assets_WIS_Asset_Statuses">
+            <End Role="WIS_Asset_Statuses" EntitySet="WIS_Asset_Statuses" />
+            <End Role="WIS_Assets" EntitySet="WIS_Assets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Assets_WIS_Asset_Types" Association="Self.FK_WIS_Assets_WIS_Asset_Types">
+            <End Role="WIS_Asset_Types" EntitySet="WIS_Asset_Types" />
+            <End Role="WIS_Assets" EntitySet="WIS_Assets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Assets_WIS_Users" Association="Self.FK_WIS_Assets_WIS_Users">
+            <End Role="WIS_Users" EntitySet="WIS_Users" />
+            <End Role="WIS_Assets" EntitySet="WIS_Assets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Reports_WIS_Report_Types" Association="Self.FK_WIS_Reports_WIS_Report_Types">
+            <End Role="WIS_Report_Types" EntitySet="WIS_Report_Types" />
+            <End Role="WIS_Reports" EntitySet="WIS_Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Reports_WIS_Users1" Association="Self.FK_WIS_Reports_WIS_Users1">
+            <End Role="WIS_Users" EntitySet="WIS_Users" />
+            <End Role="WIS_Reports" EntitySet="WIS_Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Requests_WIS_Assets" Association="Self.FK_WIS_Requests_WIS_Assets">
+            <End Role="WIS_Assets" EntitySet="WIS_Assets" />
+            <End Role="WIS_Requests" EntitySet="WIS_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Requests_WIS_Request_Statuses" Association="Self.FK_WIS_Requests_WIS_Request_Statuses">
+            <End Role="WIS_Request_Statuses" EntitySet="WIS_Request_Statuses" />
+            <End Role="WIS_Requests" EntitySet="WIS_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Requests_WIS_Users" Association="Self.FK_WIS_Requests_WIS_Users">
+            <End Role="WIS_Users" EntitySet="WIS_Users" />
+            <End Role="WIS_Requests" EntitySet="WIS_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Requests_WIS_Users1" Association="Self.FK_WIS_Requests_WIS_Users1">
+            <End Role="WIS_Users" EntitySet="WIS_Users" />
+            <End Role="WIS_Requests" EntitySet="WIS_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Users_WIS_User_Roles" Association="Self.FK_WIS_Users_WIS_User_Roles">
+            <End Role="WIS_User_Roles" EntitySet="WIS_User_Roles" />
+            <End Role="WIS_Users" EntitySet="WIS_Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WIS_databaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="WIS_Asset_Disposals">
+          <Key>
+            <PropertyRef Name="ID_disposal" />
+          </Key>
+          <Property Name="ID_disposal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="disposal_asset_ID" Type="Int32" Nullable="false" />
+          <Property Name="disposal_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="disposal_reason" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="disposal_user_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WIS_Assets" Relationship="Self.FK_WIS_Asset_Disposals_WIS_Assets" FromRole="WIS_Asset_Disposals" ToRole="WIS_Assets" />
+          <NavigationProperty Name="WIS_Users" Relationship="Self.FK_WIS_Asset_Disposals_WIS_Users" FromRole="WIS_Asset_Disposals" ToRole="WIS_Users" />
+        </EntityType>
+        <EntityType Name="WIS_Asset_Histories">
+          <Key>
+            <PropertyRef Name="ID_asset_history" />
+          </Key>
+          <Property Name="ID_asset_history" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="history_asset_ID" Type="Int32" Nullable="false" />
+          <Property Name="history_event_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="history_event_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="history_description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="history_user_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WIS_Assets" Relationship="Self.FK_WIS_Asset_Historys_WIS_Assets" FromRole="WIS_Asset_Histories" ToRole="WIS_Assets" />
+          <NavigationProperty Name="WIS_Users" Relationship="Self.FK_WIS_Asset_Historys_WIS_Users" FromRole="WIS_Asset_Histories" ToRole="WIS_Users" />
+        </EntityType>
+        <EntityType Name="WIS_Asset_Locations">
+          <Key>
+            <PropertyRef Name="ID_asset_location" />
+          </Key>
+          <Property Name="ID_asset_location" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="location_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="location_note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="WIS_Assets" Relationship="Self.FK_WIS_Assets_WIS_Asset_Locations" FromRole="WIS_Asset_Locations" ToRole="WIS_Assets" />
+        </EntityType>
+        <EntityType Name="WIS_Asset_Statuses">
+          <Key>
+            <PropertyRef Name="ID_asset_status" />
+          </Key>
+          <Property Name="ID_asset_status" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="WIS_Assets" Relationship="Self.FK_WIS_Assets_WIS_Asset_Statuses" FromRole="WIS_Asset_Statuses" ToRole="WIS_Assets" />
+        </EntityType>
+        <EntityType Name="WIS_Asset_Types">
+          <Key>
+            <PropertyRef Name="ID_asset_type" />
+          </Key>
+          <Property Name="ID_asset_type" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="asset_type_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="WIS_Assets" Relationship="Self.FK_WIS_Assets_WIS_Asset_Types" FromRole="WIS_Asset_Types" ToRole="WIS_Assets" />
+        </EntityType>
+        <EntityType Name="WIS_Assets">
+          <Key>
+            <PropertyRef Name="ID_asset" />
+          </Key>
+          <Property Name="ID_asset" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="asset_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="asset_model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="asset_serial_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="asset_type_ID" Type="Int32" Nullable="false" />
+          <Property Name="asset_purchase_date" Type="DateTime" Precision="0" />
+          <Property Name="asset_purchase_price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="asset_warranty_expiration_date" Type="DateTime" Precision="0" />
+          <Property Name="asset_note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="asset_status_ID" Type="Int32" Nullable="false" />
+          <Property Name="asset_location_ID" Type="Int32" />
+          <Property Name="asset_user_ID" Type="Int32" />
+          <NavigationProperty Name="WIS_Asset_Disposals" Relationship="Self.FK_WIS_Asset_Disposals_WIS_Assets" FromRole="WIS_Assets" ToRole="WIS_Asset_Disposals" />
+          <NavigationProperty Name="WIS_Asset_Histories" Relationship="Self.FK_WIS_Asset_Historys_WIS_Assets" FromRole="WIS_Assets" ToRole="WIS_Asset_Histories" />
+          <NavigationProperty Name="WIS_Asset_Locations" Relationship="Self.FK_WIS_Assets_WIS_Asset_Locations" FromRole="WIS_Assets" ToRole="WIS_Asset_Locations" />
+          <NavigationProperty Name="WIS_Asset_Statuses" Relationship="Self.FK_WIS_Assets_WIS_Asset_Statuses" FromRole="WIS_Assets" ToRole="WIS_Asset_Statuses" />
+          <NavigationProperty Name="WIS_Asset_Types" Relationship="Self.FK_WIS_Assets_WIS_Asset_Types" FromRole="WIS_Assets" ToRole="WIS_Asset_Types" />
+          <NavigationProperty Name="WIS_Users" Relationship="Self.FK_WIS_Assets_WIS_Users" FromRole="WIS_Assets" ToRole="WIS_Users" />
+          <NavigationProperty Name="WIS_Requests" Relationship="Self.FK_WIS_Requests_WIS_Assets" FromRole="WIS_Assets" ToRole="WIS_Requests" />
+        </EntityType>
+        <EntityType Name="WIS_Report_Types">
+          <Key>
+            <PropertyRef Name="ID_report_type" />
+          </Key>
+          <Property Name="ID_report_type" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="report_type_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="WIS_Reports" Relationship="Self.FK_WIS_Reports_WIS_Report_Types" FromRole="WIS_Report_Types" ToRole="WIS_Reports" />
+        </EntityType>
+        <EntityType Name="WIS_Reports">
+          <Key>
+            <PropertyRef Name="ID_report" />
+          </Key>
+          <Property Name="ID_report" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="report_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="report_type_ID" Type="Int32" Nullable="false" />
+          <Property Name="report_creation_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="report_user_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WIS_Report_Types" Relationship="Self.FK_WIS_Reports_WIS_Report_Types" FromRole="WIS_Reports" ToRole="WIS_Report_Types" />
+          <NavigationProperty Name="WIS_Users" Relationship="Self.FK_WIS_Reports_WIS_Users1" FromRole="WIS_Reports" ToRole="WIS_Users" />
+        </EntityType>
+        <EntityType Name="WIS_Request_Statuses">
+          <Key>
+            <PropertyRef Name="ID_request_status" />
+          </Key>
+          <Property Name="ID_request_status" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="request_status_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="WIS_Requests" Relationship="Self.FK_WIS_Requests_WIS_Request_Statuses" FromRole="WIS_Request_Statuses" ToRole="WIS_Requests" />
+        </EntityType>
+        <EntityType Name="WIS_Requests">
+          <Key>
+            <PropertyRef Name="ID_request" />
+          </Key>
+          <Property Name="ID_request" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="request_asset_ID" Type="Int32" Nullable="false" />
+          <Property Name="request_user_ID" Type="Int32" Nullable="false" />
+          <Property Name="request_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="request_status_ID" Type="Int32" Nullable="false" />
+          <Property Name="request_approved_by_user_ID" Type="Int32" />
+          <Property Name="request_approval_date" Type="DateTime" Precision="3" />
+          <Property Name="request_note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WIS_Assets" Relationship="Self.FK_WIS_Requests_WIS_Assets" FromRole="WIS_Requests" ToRole="WIS_Assets" />
+          <NavigationProperty Name="WIS_Request_Statuses" Relationship="Self.FK_WIS_Requests_WIS_Request_Statuses" FromRole="WIS_Requests" ToRole="WIS_Request_Statuses" />
+          <NavigationProperty Name="WIS_Users" Relationship="Self.FK_WIS_Requests_WIS_Users" FromRole="WIS_Requests" ToRole="WIS_Users" />
+          <NavigationProperty Name="WIS_Users1" Relationship="Self.FK_WIS_Requests_WIS_Users1" FromRole="WIS_Requests" ToRole="WIS_Users" />
+        </EntityType>
+        <EntityType Name="WIS_User_Roles">
+          <Key>
+            <PropertyRef Name="ID_user_role" />
+          </Key>
+          <Property Name="ID_user_role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_role_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="WIS_Users" Relationship="Self.FK_WIS_Users_WIS_User_Roles" FromRole="WIS_User_Roles" ToRole="WIS_Users" />
+        </EntityType>
+        <EntityType Name="WIS_Users">
+          <Key>
+            <PropertyRef Name="ID_user" />
+          </Key>
+          <Property Name="ID_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="user_lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user_login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_password_hash" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_role_ID" Type="Int32" Nullable="false" />
+          <Property Name="user_department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WIS_Asset_Disposals" Relationship="Self.FK_WIS_Asset_Disposals_WIS_Users" FromRole="WIS_Users" ToRole="WIS_Asset_Disposals" />
+          <NavigationProperty Name="WIS_Asset_Histories" Relationship="Self.FK_WIS_Asset_Historys_WIS_Users" FromRole="WIS_Users" ToRole="WIS_Asset_Histories" />
+          <NavigationProperty Name="WIS_Assets" Relationship="Self.FK_WIS_Assets_WIS_Users" FromRole="WIS_Users" ToRole="WIS_Assets" />
+          <NavigationProperty Name="WIS_Reports" Relationship="Self.FK_WIS_Reports_WIS_Users1" FromRole="WIS_Users" ToRole="WIS_Reports" />
+          <NavigationProperty Name="WIS_Requests" Relationship="Self.FK_WIS_Requests_WIS_Users" FromRole="WIS_Users" ToRole="WIS_Requests" />
+          <NavigationProperty Name="WIS_Requests1" Relationship="Self.FK_WIS_Requests_WIS_Users1" FromRole="WIS_Users" ToRole="WIS_Requests" />
+          <NavigationProperty Name="WIS_User_Roles" Relationship="Self.FK_WIS_Users_WIS_User_Roles" FromRole="WIS_Users" ToRole="WIS_User_Roles" />
+        </EntityType>
+        <Association Name="FK_WIS_Asset_Disposals_WIS_Assets">
+          <End Role="WIS_Assets" Type="Self.WIS_Assets" Multiplicity="1" />
+          <End Role="WIS_Asset_Disposals" Type="Self.WIS_Asset_Disposals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Assets">
+              <PropertyRef Name="ID_asset" />
+            </Principal>
+            <Dependent Role="WIS_Asset_Disposals">
+              <PropertyRef Name="disposal_asset_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Asset_Disposals_WIS_Users">
+          <End Role="WIS_Users" Type="Self.WIS_Users" Multiplicity="1" />
+          <End Role="WIS_Asset_Disposals" Type="Self.WIS_Asset_Disposals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="WIS_Asset_Disposals">
+              <PropertyRef Name="disposal_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Asset_Historys_WIS_Assets">
+          <End Role="WIS_Assets" Type="Self.WIS_Assets" Multiplicity="1" />
+          <End Role="WIS_Asset_Histories" Type="Self.WIS_Asset_Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Assets">
+              <PropertyRef Name="ID_asset" />
+            </Principal>
+            <Dependent Role="WIS_Asset_Histories">
+              <PropertyRef Name="history_asset_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Asset_Historys_WIS_Users">
+          <End Role="WIS_Users" Type="Self.WIS_Users" Multiplicity="1" />
+          <End Role="WIS_Asset_Histories" Type="Self.WIS_Asset_Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="WIS_Asset_Histories">
+              <PropertyRef Name="history_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Assets_WIS_Asset_Locations">
+          <End Role="WIS_Asset_Locations" Type="Self.WIS_Asset_Locations" Multiplicity="0..1" />
+          <End Role="WIS_Assets" Type="Self.WIS_Assets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Asset_Locations">
+              <PropertyRef Name="ID_asset_location" />
+            </Principal>
+            <Dependent Role="WIS_Assets">
+              <PropertyRef Name="asset_location_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Assets_WIS_Asset_Statuses">
+          <End Role="WIS_Asset_Statuses" Type="Self.WIS_Asset_Statuses" Multiplicity="1" />
+          <End Role="WIS_Assets" Type="Self.WIS_Assets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Asset_Statuses">
+              <PropertyRef Name="ID_asset_status" />
+            </Principal>
+            <Dependent Role="WIS_Assets">
+              <PropertyRef Name="asset_status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Assets_WIS_Asset_Types">
+          <End Role="WIS_Asset_Types" Type="Self.WIS_Asset_Types" Multiplicity="1" />
+          <End Role="WIS_Assets" Type="Self.WIS_Assets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Asset_Types">
+              <PropertyRef Name="ID_asset_type" />
+            </Principal>
+            <Dependent Role="WIS_Assets">
+              <PropertyRef Name="asset_type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Assets_WIS_Users">
+          <End Role="WIS_Users" Type="Self.WIS_Users" Multiplicity="0..1" />
+          <End Role="WIS_Assets" Type="Self.WIS_Assets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="WIS_Assets">
+              <PropertyRef Name="asset_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Requests_WIS_Assets">
+          <End Role="WIS_Assets" Type="Self.WIS_Assets" Multiplicity="1" />
+          <End Role="WIS_Requests" Type="Self.WIS_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Assets">
+              <PropertyRef Name="ID_asset" />
+            </Principal>
+            <Dependent Role="WIS_Requests">
+              <PropertyRef Name="request_asset_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Reports_WIS_Report_Types">
+          <End Role="WIS_Report_Types" Type="Self.WIS_Report_Types" Multiplicity="1" />
+          <End Role="WIS_Reports" Type="Self.WIS_Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Report_Types">
+              <PropertyRef Name="ID_report_type" />
+            </Principal>
+            <Dependent Role="WIS_Reports">
+              <PropertyRef Name="report_type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Reports_WIS_Users1">
+          <End Role="WIS_Users" Type="Self.WIS_Users" Multiplicity="1" />
+          <End Role="WIS_Reports" Type="Self.WIS_Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="WIS_Reports">
+              <PropertyRef Name="report_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Requests_WIS_Request_Statuses">
+          <End Role="WIS_Request_Statuses" Type="Self.WIS_Request_Statuses" Multiplicity="1" />
+          <End Role="WIS_Requests" Type="Self.WIS_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Request_Statuses">
+              <PropertyRef Name="ID_request_status" />
+            </Principal>
+            <Dependent Role="WIS_Requests">
+              <PropertyRef Name="request_status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Requests_WIS_Users">
+          <End Role="WIS_Users" Type="Self.WIS_Users" Multiplicity="1" />
+          <End Role="WIS_Requests" Type="Self.WIS_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="WIS_Requests">
+              <PropertyRef Name="request_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Requests_WIS_Users1">
+          <End Role="WIS_Users" Type="Self.WIS_Users" Multiplicity="0..1" />
+          <End Role="WIS_Requests" Type="Self.WIS_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_Users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="WIS_Requests">
+              <PropertyRef Name="request_approved_by_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WIS_Users_WIS_User_Roles">
+          <End Role="WIS_User_Roles" Type="Self.WIS_User_Roles" Multiplicity="1" />
+          <End Role="WIS_Users" Type="Self.WIS_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WIS_User_Roles">
+              <PropertyRef Name="ID_user_role" />
+            </Principal>
+            <Dependent Role="WIS_Users">
+              <PropertyRef Name="user_role_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WIS_databaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="WIS_Asset_Disposals" EntityType="Self.WIS_Asset_Disposals" />
+          <EntitySet Name="WIS_Asset_Histories" EntityType="Self.WIS_Asset_Histories" />
+          <EntitySet Name="WIS_Asset_Locations" EntityType="Self.WIS_Asset_Locations" />
+          <EntitySet Name="WIS_Asset_Statuses" EntityType="Self.WIS_Asset_Statuses" />
+          <EntitySet Name="WIS_Asset_Types" EntityType="Self.WIS_Asset_Types" />
+          <EntitySet Name="WIS_Assets" EntityType="Self.WIS_Assets" />
+          <EntitySet Name="WIS_Report_Types" EntityType="Self.WIS_Report_Types" />
+          <EntitySet Name="WIS_Reports" EntityType="Self.WIS_Reports" />
+          <EntitySet Name="WIS_Request_Statuses" EntityType="Self.WIS_Request_Statuses" />
+          <EntitySet Name="WIS_Requests" EntityType="Self.WIS_Requests" />
+          <EntitySet Name="WIS_User_Roles" EntityType="Self.WIS_User_Roles" />
+          <EntitySet Name="WIS_Users" EntityType="Self.WIS_Users" />
+          <AssociationSet Name="FK_WIS_Asset_Disposals_WIS_Assets" Association="Self.FK_WIS_Asset_Disposals_WIS_Assets">
+            <End Role="WIS_Assets" EntitySet="WIS_Assets" />
+            <End Role="WIS_Asset_Disposals" EntitySet="WIS_Asset_Disposals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Asset_Disposals_WIS_Users" Association="Self.FK_WIS_Asset_Disposals_WIS_Users">
+            <End Role="WIS_Users" EntitySet="WIS_Users" />
+            <End Role="WIS_Asset_Disposals" EntitySet="WIS_Asset_Disposals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Asset_Historys_WIS_Assets" Association="Self.FK_WIS_Asset_Historys_WIS_Assets">
+            <End Role="WIS_Assets" EntitySet="WIS_Assets" />
+            <End Role="WIS_Asset_Histories" EntitySet="WIS_Asset_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Asset_Historys_WIS_Users" Association="Self.FK_WIS_Asset_Historys_WIS_Users">
+            <End Role="WIS_Users" EntitySet="WIS_Users" />
+            <End Role="WIS_Asset_Histories" EntitySet="WIS_Asset_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Assets_WIS_Asset_Locations" Association="Self.FK_WIS_Assets_WIS_Asset_Locations">
+            <End Role="WIS_Asset_Locations" EntitySet="WIS_Asset_Locations" />
+            <End Role="WIS_Assets" EntitySet="WIS_Assets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Assets_WIS_Asset_Statuses" Association="Self.FK_WIS_Assets_WIS_Asset_Statuses">
+            <End Role="WIS_Asset_Statuses" EntitySet="WIS_Asset_Statuses" />
+            <End Role="WIS_Assets" EntitySet="WIS_Assets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Assets_WIS_Asset_Types" Association="Self.FK_WIS_Assets_WIS_Asset_Types">
+            <End Role="WIS_Asset_Types" EntitySet="WIS_Asset_Types" />
+            <End Role="WIS_Assets" EntitySet="WIS_Assets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Assets_WIS_Users" Association="Self.FK_WIS_Assets_WIS_Users">
+            <End Role="WIS_Users" EntitySet="WIS_Users" />
+            <End Role="WIS_Assets" EntitySet="WIS_Assets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Requests_WIS_Assets" Association="Self.FK_WIS_Requests_WIS_Assets">
+            <End Role="WIS_Assets" EntitySet="WIS_Assets" />
+            <End Role="WIS_Requests" EntitySet="WIS_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Reports_WIS_Report_Types" Association="Self.FK_WIS_Reports_WIS_Report_Types">
+            <End Role="WIS_Report_Types" EntitySet="WIS_Report_Types" />
+            <End Role="WIS_Reports" EntitySet="WIS_Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Reports_WIS_Users1" Association="Self.FK_WIS_Reports_WIS_Users1">
+            <End Role="WIS_Users" EntitySet="WIS_Users" />
+            <End Role="WIS_Reports" EntitySet="WIS_Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Requests_WIS_Request_Statuses" Association="Self.FK_WIS_Requests_WIS_Request_Statuses">
+            <End Role="WIS_Request_Statuses" EntitySet="WIS_Request_Statuses" />
+            <End Role="WIS_Requests" EntitySet="WIS_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Requests_WIS_Users" Association="Self.FK_WIS_Requests_WIS_Users">
+            <End Role="WIS_Users" EntitySet="WIS_Users" />
+            <End Role="WIS_Requests" EntitySet="WIS_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Requests_WIS_Users1" Association="Self.FK_WIS_Requests_WIS_Users1">
+            <End Role="WIS_Users" EntitySet="WIS_Users" />
+            <End Role="WIS_Requests" EntitySet="WIS_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WIS_Users_WIS_User_Roles" Association="Self.FK_WIS_Users_WIS_User_Roles">
+            <End Role="WIS_User_Roles" EntitySet="WIS_User_Roles" />
+            <End Role="WIS_Users" EntitySet="WIS_Users" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(WIS_databaseModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(WIS_databaseModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище WIS_databaseModelContainer" CdmEntityContainer="WIS_databaseEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="WIS_databaseModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WIS_Asset_Disposals">
+            <EntityTypeMapping TypeName="WIS_databaseModel.WIS_Asset_Disposals">
+              <MappingFragment StoreEntitySet="WIS_Asset_Disposals">
+                <ScalarProperty Name="ID_disposal" ColumnName="ID_disposal" />
+                <ScalarProperty Name="disposal_asset_ID" ColumnName="disposal_asset_ID" />
+                <ScalarProperty Name="disposal_date" ColumnName="disposal_date" />
+                <ScalarProperty Name="disposal_reason" ColumnName="disposal_reason" />
+                <ScalarProperty Name="disposal_user_ID" ColumnName="disposal_user_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WIS_Asset_Histories">
+            <EntityTypeMapping TypeName="WIS_databaseModel.WIS_Asset_Histories">
+              <MappingFragment StoreEntitySet="WIS_Asset_Histories">
+                <ScalarProperty Name="ID_asset_history" ColumnName="ID_asset_history" />
+                <ScalarProperty Name="history_asset_ID" ColumnName="history_asset_ID" />
+                <ScalarProperty Name="history_event_date" ColumnName="history_event_date" />
+                <ScalarProperty Name="history_event_type" ColumnName="history_event_type" />
+                <ScalarProperty Name="history_description" ColumnName="history_description" />
+                <ScalarProperty Name="history_user_ID" ColumnName="history_user_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WIS_Asset_Locations">
+            <EntityTypeMapping TypeName="WIS_databaseModel.WIS_Asset_Locations">
+              <MappingFragment StoreEntitySet="WIS_Asset_Locations">
+                <ScalarProperty Name="ID_asset_location" ColumnName="ID_asset_location" />
+                <ScalarProperty Name="location_name" ColumnName="location_name" />
+                <ScalarProperty Name="location_note" ColumnName="location_note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WIS_Asset_Statuses">
+            <EntityTypeMapping TypeName="WIS_databaseModel.WIS_Asset_Statuses">
+              <MappingFragment StoreEntitySet="WIS_Asset_Statuses">
+                <ScalarProperty Name="ID_asset_status" ColumnName="ID_asset_status" />
+                <ScalarProperty Name="status_name" ColumnName="status_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WIS_Asset_Types">
+            <EntityTypeMapping TypeName="WIS_databaseModel.WIS_Asset_Types">
+              <MappingFragment StoreEntitySet="WIS_Asset_Types">
+                <ScalarProperty Name="ID_asset_type" ColumnName="ID_asset_type" />
+                <ScalarProperty Name="asset_type_name" ColumnName="asset_type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WIS_Assets">
+            <EntityTypeMapping TypeName="WIS_databaseModel.WIS_Assets">
+              <MappingFragment StoreEntitySet="WIS_Assets">
+                <ScalarProperty Name="ID_asset" ColumnName="ID_asset" />
+                <ScalarProperty Name="asset_name" ColumnName="asset_name" />
+                <ScalarProperty Name="asset_model" ColumnName="asset_model" />
+                <ScalarProperty Name="asset_serial_number" ColumnName="asset_serial_number" />
+                <ScalarProperty Name="asset_type_ID" ColumnName="asset_type_ID" />
+                <ScalarProperty Name="asset_purchase_date" ColumnName="asset_purchase_date" />
+                <ScalarProperty Name="asset_purchase_price" ColumnName="asset_purchase_price" />
+                <ScalarProperty Name="asset_warranty_expiration_date" ColumnName="asset_warranty_expiration_date" />
+                <ScalarProperty Name="asset_note" ColumnName="asset_note" />
+                <ScalarProperty Name="asset_status_ID" ColumnName="asset_status_ID" />
+                <ScalarProperty Name="asset_location_ID" ColumnName="asset_location_ID" />
+                <ScalarProperty Name="asset_user_ID" ColumnName="asset_user_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WIS_Report_Types">
+            <EntityTypeMapping TypeName="WIS_databaseModel.WIS_Report_Types">
+              <MappingFragment StoreEntitySet="WIS_Report_Types">
+                <ScalarProperty Name="ID_report_type" ColumnName="ID_report_type" />
+                <ScalarProperty Name="report_type_name" ColumnName="report_type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WIS_Reports">
+            <EntityTypeMapping TypeName="WIS_databaseModel.WIS_Reports">
+              <MappingFragment StoreEntitySet="WIS_Reports">
+                <ScalarProperty Name="ID_report" ColumnName="ID_report" />
+                <ScalarProperty Name="report_name" ColumnName="report_name" />
+                <ScalarProperty Name="report_type_ID" ColumnName="report_type_ID" />
+                <ScalarProperty Name="report_creation_date" ColumnName="report_creation_date" />
+                <ScalarProperty Name="report_user_ID" ColumnName="report_user_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WIS_Request_Statuses">
+            <EntityTypeMapping TypeName="WIS_databaseModel.WIS_Request_Statuses">
+              <MappingFragment StoreEntitySet="WIS_Request_Statuses">
+                <ScalarProperty Name="ID_request_status" ColumnName="ID_request_status" />
+                <ScalarProperty Name="request_status_name" ColumnName="request_status_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WIS_Requests">
+            <EntityTypeMapping TypeName="WIS_databaseModel.WIS_Requests">
+              <MappingFragment StoreEntitySet="WIS_Requests">
+                <ScalarProperty Name="ID_request" ColumnName="ID_request" />
+                <ScalarProperty Name="request_asset_ID" ColumnName="request_asset_ID" />
+                <ScalarProperty Name="request_user_ID" ColumnName="request_user_ID" />
+                <ScalarProperty Name="request_date" ColumnName="request_date" />
+                <ScalarProperty Name="request_status_ID" ColumnName="request_status_ID" />
+                <ScalarProperty Name="request_approved_by_user_ID" ColumnName="request_approved_by_user_ID" />
+                <ScalarProperty Name="request_approval_date" ColumnName="request_approval_date" />
+                <ScalarProperty Name="request_note" ColumnName="request_note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WIS_User_Roles">
+            <EntityTypeMapping TypeName="WIS_databaseModel.WIS_User_Roles">
+              <MappingFragment StoreEntitySet="WIS_User_Roles">
+                <ScalarProperty Name="ID_user_role" ColumnName="ID_user_role" />
+                <ScalarProperty Name="user_role_name" ColumnName="user_role_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WIS_Users">
+            <EntityTypeMapping TypeName="WIS_databaseModel.WIS_Users">
+              <MappingFragment StoreEntitySet="WIS_Users">
+                <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+                <ScalarProperty Name="user_firstname" ColumnName="user_firstname" />
+                <ScalarProperty Name="user_lastname" ColumnName="user_lastname" />
+                <ScalarProperty Name="user_login" ColumnName="user_login" />
+                <ScalarProperty Name="user_password_hash" ColumnName="user_password_hash" />
+                <ScalarProperty Name="user_email" ColumnName="user_email" />
+                <ScalarProperty Name="user_role_ID" ColumnName="user_role_ID" />
+                <ScalarProperty Name="user_department" ColumnName="user_department" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище WIS_databaseModel.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище WIS_databaseModel.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище WIS_databaseModel.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище WIS_databaseModel.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WIS_databaseModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище WIS_databaseModel.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WIS_databaseModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище WIS_databaseModel.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище WIS_databaseModel.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,69 @@
+﻿<Page x:Class="WIS.Pages.ReportsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WIS.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Просмотр отчётов"
+      Background="#F0F8FF">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Text="Просмотр отчётов"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="#2F4F4F"
+                   Margin="0,0,0,10"/>
+
+        <!-- Панель фильтра -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,30,0,10">
+            <TextBlock Text="Фильтр по названию:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBox x:Name="FilterTextBox" Width="200" 
+                     Style="{StaticResource InputFieldStyle}" 
+                     TextChanged="FilterTextBox_TextChanged"/>
+            <Button Content="Обновить" 
+                    Style="{StaticResource CustomButtonStyle}" 
+                    Click="RefreshButton_Click" Margin="10,0,0,0"/>
+        </StackPanel>
+
+        <!-- Таблица отчётов -->
+        <DataGrid x:Name="ReportDataGrid"
+          Grid.Row="1"
+          AutoGenerateColumns="False"
+          IsReadOnly="True"
+          CanUserAddRows="False"
+          Margin="0,0,0,10"
+          SelectionMode="Single"
+          RowBackground="White"
+          AlternatingRowBackground="#F9F9F9"
+          GridLinesVisibility="Horizontal"
+          HeadersVisibility="Column"
+          BorderBrush="#4682B4"
+          BorderThickness="1"
+          FontSize="14">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding report_name}" Width="*"/>
+                <DataGridTextColumn Header="Тип отчёта" Binding="{Binding WIS_Report_Types.report_type_name}" Width="150"/>
+                <DataGridTextColumn Header="Дата создания" Binding="{Binding report_creation_date, StringFormat=d}" Width="150"/>
+                <DataGridTextColumn Header="Создатель" Binding="{Binding WIS_Users.user_firstname}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Кнопка создания отчёта -->
+        <Border Grid.Row="2" Background="#E6F0FA" CornerRadius="5" Padding="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Создать отчёт" Width="140"
+                        Style="{StaticResource CustomButtonStyle}"
+                        Click="CreateReportButton_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
