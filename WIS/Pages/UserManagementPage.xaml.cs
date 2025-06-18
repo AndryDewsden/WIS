@@ -51,6 +51,8 @@ namespace WIS.Pages
             {
                 var roles = context.WIS_User_Roles.ToList();
                 RoleComboBox.ItemsSource = roles;
+                RoleComboBox.DisplayMemberPath = "role_name";
+                RoleComboBox.SelectedValuePath = "ID_user_role";
             }
         }
 
@@ -182,7 +184,6 @@ namespace WIS.Pages
         {
             try
             {
-
                 if (string.IsNullOrWhiteSpace(LoginTextBox.Text))
                 {
                     MessageBox.Show("Введите логин пользователя.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -196,9 +197,9 @@ namespace WIS.Pages
                     return;
                 }
 
-                if (!int.TryParse(RoleComboBox.Text, out int roleId))
+                if (RoleComboBox.SelectedValue == null || !int.TryParse(RoleComboBox.SelectedValue.ToString(), out int roleId))
                 {
-                    MessageBox.Show("Введите корректный ID роли.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Выберите корректную роль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
@@ -223,7 +224,7 @@ namespace WIS.Pages
                     user_lastname = LastNameTextBox.Text,
                     user_login = LoginTextBox.Text,
                     user_email = EmailTextBox.Text,
-                    user_password_hash = HashHelper.ComputeSha256HashBytes(PasswordBox.Password),
+                    user_password_hash = HashHelper.ComputeSha256HashString(PasswordBox.Password),
                     user_role_ID = roleId,
                     user_department = DepartmentTextBox.Text
                 };
@@ -261,15 +262,15 @@ namespace WIS.Pages
                     return;
                 }
 
-                if (!int.TryParse(RoleComboBox.Text, out int roleId))
+                if (RoleComboBox.SelectedValue == null || !int.TryParse(RoleComboBox.SelectedValue.ToString(), out int roleId))
                 {
-                    MessageBox.Show("Введите корректный ID роли.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Выберите корректную роль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
                 if (!string.IsNullOrEmpty(PasswordBox.Password))
                 {
-                    selectedUser.user_password_hash = HashHelper.ComputeSha256HashBytes(PasswordBox.Password);
+                    selectedUser.user_password_hash = HashHelper.ComputeSha256HashString(PasswordBox.Password);
                 }
 
                 selectedUser.user_firstname = FirstNameTextBox.Text;

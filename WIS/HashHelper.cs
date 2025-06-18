@@ -21,7 +21,9 @@ namespace WIS
         public static byte[] HexStringToByteArray(string hex)
         {
             if (string.IsNullOrWhiteSpace(hex))
+            {
                 return Array.Empty<byte>();
+            }
 
             int length = hex.Length;
             byte[] bytes = new byte[length / 2];
@@ -41,5 +43,15 @@ namespace WIS
                 return sha256.ComputeHash(Encoding.UTF8.GetBytes(rawData));
             }
         }
+
+        public static string ComputeSha256HashString(string rawData)
+        {
+            using (var sha256 = System.Security.Cryptography.SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+                return BitConverter.ToString(bytes).Replace("-", "").ToLower();
+            }
+        }
+
     }
 }

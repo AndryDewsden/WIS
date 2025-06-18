@@ -30,14 +30,14 @@ namespace WIS.ApplicationData
         public string user_firstname { get; set; }
         public string user_lastname { get; set; }
         public string user_login { get; set; }
-        public byte[] user_password_hash { get; set; }
+        public string user_password_hash { get; set; }
         public string user_email { get; set; }
         public int user_role_ID { get; set; }
         public string user_department { get; set; }
 
         [NotMapped]
-        public string RoleName => this.WIS_User_Roles?.user_role_name ?? "Неизвестно"; 
-        
+        public string RoleName => this.WIS_User_Roles?.user_role_name ?? "Неизвестно";
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WIS_Asset_Disposals> WIS_Asset_Disposals { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

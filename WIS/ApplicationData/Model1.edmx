@@ -127,7 +127,7 @@
           <Property Name="user_firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="user_lastname" Type="nvarchar" MaxLength="50" />
           <Property Name="user_login" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="user_password_hash" Type="varbinary" MaxLength="50" Nullable="false" />
+          <Property Name="user_password_hash" Type="varchar" MaxLength="64" />
           <Property Name="user_email" Type="varchar" MaxLength="50" />
           <Property Name="user_role_ID" Type="int" Nullable="false" />
           <Property Name="user_department" Type="nvarchar" MaxLength="50" />
@@ -568,7 +568,7 @@
           <Property Name="user_firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="user_lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="user_login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="user_password_hash" Type="Binary" MaxLength="50" FixedLength="false" Nullable="false" />
+          <Property Name="user_password_hash" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="user_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="user_role_ID" Type="Int32" Nullable="false" />
           <Property Name="user_department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />

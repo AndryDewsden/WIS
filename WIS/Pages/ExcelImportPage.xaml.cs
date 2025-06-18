@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WIS.ApplicationData;
 using ClosedXML.Excel;
+using System.Data.Entity.Validation;
 
 namespace WIS.Pages
 {
@@ -32,7 +33,7 @@ namespace WIS.Pages
     { 3, 1 }  // Пользователь
 };
 
-        WIS_Users currentUser;
+        private WIS_Users currentUser;
         private DataTable excelTable;
 
         public ExcelImportPage(WIS_Users currentUser)
@@ -159,9 +160,13 @@ namespace WIS.Pages
                 AppConnect.Model.SaveChanges();
                 MessageBox.Show("Данные успешно сохранены в базе.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException dbEx)
             {
-                MessageBox.Show($"Ошибка при сохранении: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                var errors = dbEx.EntityValidationErrors
+                                 .SelectMany(validationResult => validationResult.ValidationErrors)
+                                 .Select(validationError => validationError.ErrorMessage);
+
+                MessageBox.Show($"Ошибка при сохранении:\n{string.Join("\n", errors)}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -185,7 +190,7 @@ namespace WIS.Pages
                 {
                     existingUser.user_firstname = row["user_firstname"].ToString();
                     existingUser.user_lastname = row["user_lastname"].ToString();
-                    existingUser.user_password_hash = HashHelper.HexStringToByteArray(row["user_password_hash"].ToString());
+                    existingUser.user_password_hash = row["user_password_hash"].ToString().Trim().ToLower();
                     existingUser.user_email = row["user_email"].ToString();
                     existingUser.user_role_ID = newRoleId;
                 }
@@ -196,7 +201,7 @@ namespace WIS.Pages
                         user_firstname = row["user_firstname"].ToString(),
                         user_lastname = row["user_lastname"].ToString(),
                         user_login = login,
-                        user_password_hash = HashHelper.HexStringToByteArray(row["user_password_hash"].ToString()),
+                        user_password_hash = row["user_password_hash"].ToString().Trim().ToLower(),
                         user_email = row["user_email"].ToString(),
                         user_role_ID = newRoleId
                     };

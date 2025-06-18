@@ -97,7 +97,6 @@ namespace WIS.Pages
             if (reportData != null)
             {
                 PreviewDataGrid.ItemsSource = reportData.DefaultView;
-                MessageBox.Show($"Строк: {reportData.Rows.Count}, Столбцов: {reportData.Columns.Count}");
                 //SaveReportToDatabase(ReportNameTextBox.Text, selectedType.ID_report_type);
                 //MessageBox.Show("Отчёт сформирован", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 SaveButton.IsEnabled = !string.IsNullOrWhiteSpace(ReportNameTextBox.Text) && PreviewDataGrid.ItemsSource != null;
@@ -167,8 +166,6 @@ namespace WIS.Pages
                 x.a.asset_purchase_date,
                 x.a.asset_purchase_price
             }).ToList();
-
-            MessageBox.Show($"Найдено записей: {result.Count}");
 
             data.Columns.Add("ID", typeof(int));
             data.Columns.Add("Название", typeof(string));

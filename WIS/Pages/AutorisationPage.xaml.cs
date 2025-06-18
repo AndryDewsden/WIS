@@ -92,11 +92,14 @@ namespace WIS.Pages
                 string password = txbPassword.Password.Trim();
 
                 // Хешируем введённый пароль
-                string passwordHash = HashHelper.ComputeSha256Hash(password);
+                string passwordHashHex = HashHelper.ComputeSha256Hash(password); // строка в hex
 
-                var userObj = AppConnect.Model.WIS_Users.FirstOrDefault(x => x.user_login.Trim().ToLower() == login.ToLower() && BitConverter.ToString(x.user_password_hash).Replace("-", "").ToLower() == passwordHash);
+                // Сначала получаем пользователя по логину
+                var userObj = AppConnect.Model.WIS_Users
+                    .FirstOrDefault(x => x.user_login.Trim().ToLower() == login.ToLower());
 
-                if (userObj == null)
+                // Проверяем, найден ли пользователь и совпадает ли хэш пароля
+                if (userObj == null || !string.Equals(userObj.user_password_hash?.Trim(), passwordHashHex, StringComparison.OrdinalIgnoreCase))
                 {
                     MessageBox.Show("Неверный логин или пароль", "Ошибка авторизации", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
