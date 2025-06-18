@@ -51,7 +51,7 @@ namespace WIS.Pages
             {
                 var roles = context.WIS_User_Roles.ToList();
                 RoleComboBox.ItemsSource = roles;
-                RoleComboBox.DisplayMemberPath = "role_name";
+                RoleComboBox.DisplayMemberPath = "user_role_name";
                 RoleComboBox.SelectedValuePath = "ID_user_role";
             }
         }
@@ -144,7 +144,7 @@ namespace WIS.Pages
                 LoginTextBox.Text = selectedUser.user_login;
                 EmailTextBox.Text = selectedUser.user_email;
                 PasswordBox.Password = "";
-                RoleComboBox.SelectedIndex = selectedUser.user_role_ID;
+                RoleComboBox.SelectedValue = selectedUser.user_role_ID;
                 DepartmentTextBox.Text = selectedUser.user_department;
 
                 // Проверяем права на редактирование выбранного пользователя
