@@ -54,11 +54,17 @@
                     <ListBoxItem Tag="ExcelImport">Импорт из Excel</ListBoxItem>
                 </ListBox>
                 
-                <Button Content="К списку активов" x:Name="Bt_GoBack" Height="30" Width="150" 
+                <Button Content="Список активов" x:Name="Bt_GoBack" Height="30" Width="160" 
                     Style="{StaticResource CustomButtonStyle}" 
                     Margin="0,0,0,10"
                     HorizontalAlignment="Center"
                     Click="Bt_GoBack_Click"/>
+
+                <Button Content="Заявки" x:Name="Bt_goRequest" Height="30" Width="160" 
+                    Style="{StaticResource CustomButtonStyle}" 
+                    Margin="0,0,0,10"
+                    HorizontalAlignment="Center"
+                    Click="Bt_goRequest_Click"/>
             </StackPanel>
         </Border>
 

@@ -60,6 +60,16 @@ namespace WIS.Pages
         {
             userDisplay.Content = _currentUser.user_firstname;
             ConfigureUserPermissions();
+
+            if (_currentUser.user_role_ID == 3)
+            {
+                userDisplay.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                userDisplay.Visibility = Visibility.Visible;
+            }
+
             UpdateCounter();
         }
 

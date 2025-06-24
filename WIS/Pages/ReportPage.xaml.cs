@@ -15,6 +15,7 @@ namespace WIS.Pages
 {
     public partial class ReportPage : Page
     {
+        private FontResolver _fontResolver = new FontResolver();
         private WIS_Users _currentUser;
         private DateTime? _selectedStartDate;
         private DateTime? _selectedEndDate;
@@ -22,7 +23,8 @@ namespace WIS.Pages
         public ReportPage(WIS_Users user)
         {
             InitializeComponent();
-            GlobalFontSettings.FontResolver = new FontResolver();
+            _fontResolver = new FontResolver();
+            GlobalFontSettings.FontResolver = _fontResolver;
             _currentUser = user;
             InitializeUI();
             LoadReportTypes();
@@ -85,9 +87,6 @@ namespace WIS.Pages
                     break;
                 case 3:
                     reportData = GenerateDisposalsReport();
-                    break;
-                case 4:
-                    reportData = GenerateInventoryReport();
                     break;
                 default:
                     MessageBox.Show("Неизвестный тип отчёта", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -291,55 +290,6 @@ namespace WIS.Pages
             return data;
         }
 
-        private DataTable GenerateInventoryReport()
-        {
-            var data = new DataTable();
-
-            var query = AppConnect.Model.WIS_Asset_Histories
-                .Where(h => h.history_event_type == "Инвентаризация")
-                .Join(AppConnect.Model.WIS_Assets,
-                    h => h.history_asset_ID,
-                    a => a.ID_asset,
-                    (h, a) => new { h, a })
-                .Join(AppConnect.Model.WIS_Users,
-                    ha => ha.h.history_user_ID,
-                    u => u.ID_user,
-                    (ha, u) => new { ha.h, ha.a, u })
-                .AsQueryable();
-
-            if (_selectedStartDate.HasValue)
-                query = query.Where(x => x.h.history_event_date >= _selectedStartDate);
-            if (_selectedEndDate.HasValue)
-                query = query.Where(x => x.h.history_event_date <= _selectedEndDate);
-            if (StatusFilterComboBox.SelectedValue is int statusId && statusId != -1)
-                query = query.Where(x => x.a.asset_status_ID == statusId);
-            if (TypeFilterComboBox.SelectedValue is int typeId && typeId != -1)
-                query = query.Where(x => x.a.asset_type_ID == typeId);
-
-            var result = query.Select(x => new
-            {
-                x.h.ID_asset_history,
-                x.a.asset_name,
-                x.h.history_event_date,
-                x.h.history_description,
-                UserName = x.u.user_firstname + " " + x.u.user_lastname
-            }).ToList();
-
-            data.Columns.Add("ID", typeof(int));
-            data.Columns.Add("Оборудование", typeof(string));
-            data.Columns.Add("Дата", typeof(DateTime));
-            data.Columns.Add("Описание", typeof(string));
-            data.Columns.Add("Пользователь", typeof(string));
-
-            foreach (var item in result)
-            {
-                data.Rows.Add(item.ID_asset_history, item.asset_name,
-                    item.history_event_date, item.history_description, item.UserName);
-            }
-
-            return data;
-        }
-
         private void ExportToExcelButton_Click(object sender, RoutedEventArgs e)
         {
             if (PreviewDataGrid.ItemsSource == null)
@@ -390,7 +340,8 @@ namespace WIS.Pages
             string fileName = ReportNameTextBox.Text + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".pdf";
             string filePath = Path.Combine(downloadsPath, fileName);
 
-            var document = new Document(PageSize.A4.Rotate(), 40, 40, 60, 40);
+            var document = new Document(PageSize.A4, 40, 40, 60, 40);
+
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 var writer = PdfWriter.GetInstance(document, stream);
@@ -398,55 +349,71 @@ namespace WIS.Pages
 
                 document.Open();
 
-                var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 20);
-                var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+                byte[] fontData = _fontResolver.GetFont("Times New Roman");
 
-                // Логотип
+                BaseFont baseFont;
+                using (var ms = new MemoryStream(fontData))
+                {
+                    baseFont = BaseFont.CreateFont("Times New Roman.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, true, fontData, null);
+                }
+
+                Font titleFont = new Font(baseFont, 20, Font.BOLD);
+                Font normalFont = new Font(baseFont, 12, Font.NORMAL);
+                Font headerFont = new Font(baseFont, 10, Font.BOLD);
+                Font cellFont = new Font(baseFont, 10, Font.NORMAL);
+
+                // --- Титульная страница ---
+
                 string logoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SystemImages", "icon_black.png");
                 if (File.Exists(logoPath))
                 {
                     var logo = iTextSharp.text.Image.GetInstance(logoPath);
-                    logo.ScaleToFit(100f, 100f);
+                    logo.ScaleToFit(120f, 120f);
                     logo.Alignment = Element.ALIGN_CENTER;
-                    logo.SpacingAfter = 20f;
+                    logo.SpacingAfter = 30f;
                     document.Add(logo);
                 }
 
-                // Заголовок
                 var title = new Paragraph("Отчёт: " + ReportNameTextBox.Text, titleFont)
                 {
                     Alignment = Element.ALIGN_CENTER,
-                    SpacingBefore = 20,
-                    SpacingAfter = 20
+                    SpacingAfter = 30
                 };
                 document.Add(title);
 
-                // Информация о пользователе
-                var userInfo = new Paragraph($"Сформировано: {_currentUser.user_firstname} {_currentUser.user_lastname}", normalFont)
+                var userInfo = new Paragraph($"Сформировано пользователем: {_currentUser.user_firstname} {_currentUser.user_lastname}", normalFont)
                 {
                     Alignment = Element.ALIGN_CENTER,
                     SpacingAfter = 10
                 };
                 document.Add(userInfo);
 
-                // Дата
                 var dateInfo = new Paragraph("Дата формирования: " + DateTime.Now.ToString("dd.MM.yyyy HH:mm"), normalFont)
                 {
-                    Alignment = Element.ALIGN_CENTER
+                    Alignment = Element.ALIGN_CENTER,
+                    SpacingAfter = 20
                 };
                 document.Add(dateInfo);
 
-                // Отступ перед подписью
-                document.Add(new Paragraph("\n\n\n\n\n\n\n"));
+                string periodText = $"Период отчёта: " +
+                    (_selectedStartDate.HasValue ? _selectedStartDate.Value.ToString("dd.MM.yyyy") : "не указан") +
+                    " - " +
+                    (_selectedEndDate.HasValue ? _selectedEndDate.Value.ToString("dd.MM.yyyy") : "не указан");
 
-                // Подпись и печать
+                var periodParagraph = new Paragraph(periodText, normalFont)
+                {
+                    Alignment = Element.ALIGN_CENTER,
+                    SpacingAfter = 50
+                };
+                document.Add(periodParagraph);
+
+                // Отступы для подписи и печати
                 var signatureTable = new PdfPTable(2)
                 {
                     WidthPercentage = 80,
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     SpacingBefore = 50
                 };
-
                 signatureTable.SetWidths(new float[] { 1, 1 });
 
                 var signatureCell = new PdfPCell(new Phrase("Подпись: ______________________", normalFont))
@@ -468,21 +435,20 @@ namespace WIS.Pages
 
                 document.Add(signatureTable);
 
-                // Переход к таблице
+                // Новая страница для таблицы с данными
                 document.NewPage();
-
-                var headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
-                var cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 10);
 
                 var table = new PdfPTable(PreviewDataGrid.Columns.Count)
                 {
-                    WidthPercentage = 100
+                    WidthPercentage = 100,
+                    SpacingBefore = 10
                 };
 
-                // Заголовки
+                // Заголовки столбцов
                 foreach (var column in PreviewDataGrid.Columns)
                 {
-                    var cell = new PdfPCell(new Phrase(column.Header.ToString(), headerFont))
+                    string headerText = column.Header?.ToString() ?? "";
+                    var cell = new PdfPCell(new Phrase(headerText, headerFont))
                     {
                         BackgroundColor = new BaseColor(230, 230, 230),
                         HorizontalAlignment = Element.ALIGN_CENTER,
@@ -491,13 +457,14 @@ namespace WIS.Pages
                     table.AddCell(cell);
                 }
 
-                // Данные
+                // Данные из DataView
                 var dataView = (DataView)PreviewDataGrid.ItemsSource;
                 foreach (DataRowView row in dataView)
                 {
                     foreach (var item in row.Row.ItemArray)
                     {
-                        var cell = new PdfPCell(new Phrase(item?.ToString() ?? "", cellFont))
+                        string text = item?.ToString() ?? "";
+                        var cell = new PdfPCell(new Phrase(text, cellFont))
                         {
                             HorizontalAlignment = Element.ALIGN_LEFT,
                             Padding = 4
@@ -507,21 +474,66 @@ namespace WIS.Pages
                 }
 
                 document.Add(table);
+
+                // Новая страница с выводом (подпись и печать)
+                document.NewPage();
+
+                var footerTable = new PdfPTable(2)
+                {
+                    WidthPercentage = 80,
+                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    SpacingBefore = 200
+                };
+                footerTable.SetWidths(new float[] { 1, 1 });
+
+                var footerSignatureCell = new PdfPCell(new Phrase("Подпись: ______________________", normalFont))
+                {
+                    Border = Rectangle.NO_BORDER,
+                    HorizontalAlignment = Element.ALIGN_LEFT,
+                    PaddingTop = 20
+                };
+
+                var footerStampCell = new PdfPCell(new Phrase("Печать: ______________________", normalFont))
+                {
+                    Border = Rectangle.NO_BORDER,
+                    HorizontalAlignment = Element.ALIGN_RIGHT,
+                    PaddingTop = 20
+                };
+
+                footerTable.AddCell(footerSignatureCell);
+                footerTable.AddCell(footerStampCell);
+
+                document.Add(footerTable);
+
                 document.Close();
             }
 
             MessageBox.Show("Отчёт сохранён в PDF: " + filePath, "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+
         private void ReportNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SaveButton.IsEnabled = !string.IsNullOrWhiteSpace(ReportNameTextBox.Text) &&
-                                   PreviewDataGrid.ItemsSource != null;
+            SaveButton.IsEnabled = !string.IsNullOrWhiteSpace(ReportNameTextBox.Text) && PreviewDataGrid.ItemsSource != null;
         }
 
         private void ReportTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TypeFilterComboBox.IsEnabled = true;
+            if (!(ReportTypeComboBox.SelectedItem is WIS_Report_Types selectedType))
+            {
+                return;
+            }
+
+            if (selectedType.ID_report_type == 3)
+            {
+                TypeFilterComboBox.IsEnabled = false;
+                TypeFilterComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                TypeFilterComboBox.IsEnabled = true;
+            }
+
             UpdateFilters();
         }
 
@@ -531,7 +543,7 @@ namespace WIS.Pages
                 return;
 
             // Статусы
-            if (selectedType.ID_report_type == 1 || selectedType.ID_report_type == 4)
+            if (selectedType.ID_report_type == 1)
             {
                 var statuses = AppConnect.Model.WIS_Asset_Statuses.ToList();
                 statuses.Insert(0, new WIS_Asset_Statuses { ID_asset_status = -1, status_name = "Любой статус" });

@@ -22,8 +22,8 @@
                     <PasswordBox x:Name="txbPassword" Margin="0,5,0,0" Width="200" Height="30" PasswordChanged="txbPassword_PasswordChanged" VerticalContentAlignment="Center" LostFocus="txbPassword_LostFocus"/>
                     <TextBox x:Name="txbPasswordPlaceHolder" Text="Ваш пароль" Foreground="#808080" Margin="0,5,0,0" Width="200" Height="30" VerticalContentAlignment="Center" GotFocus="txbPasswordPlaceHolder_GotFocus"/>
                 </Grid>
-                <Button x:Name="Enter" Content="Войти" Margin="0,5,0,0" VerticalAlignment="Center" Width="200" Height="30" Click="Enter_Click" FontWeight="Bold" Background="#4682B4" Foreground="#E0FFFF"/>
-                <Button x:Name="ExitB" Content="Выйти из приложения" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Center" Width="200" Height="30" FontWeight="Bold" Click="ExitB_Click" Background="#4682B4	" Foreground="#E0FFFF"/>
+                <Button x:Name="Enter" Style="{StaticResource CustomButtonStyle}" Content="Войти" Margin="0,5,0,0" VerticalAlignment="Center" Width="180" Height="30" Click="Enter_Click" FontWeight="Bold" Background="#4682B4" Foreground="#E0FFFF"/>
+                <Button x:Name="ExitB" Style="{StaticResource CustomButtonStyle}" Content="Выйти из приложения" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Center" Width="180" Height="30" FontWeight="Bold" Click="ExitB_Click" Background="#4682B4	" Foreground="#E0FFFF"/>
             </StackPanel>
         </Border>
     </Grid>

@@ -121,12 +121,12 @@
                                  Style="{StaticResource InputFieldStyle}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="5,0,0,0">
-                        <Button x:Name="AddAssetButton" Content="Добавить" Width="80" Margin="0,0,0,5"
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="15,0,0,0">
+                        <Button x:Name="AddAssetButton" Content="Добавить" Width="80" Height="20" Margin="0,0,0,5"
                                 Style="{StaticResource CustomButtonStyle}" Click="AddAssetButton_Click"/>
-                        <Button x:Name="UpdateAssetButton" Content="Обновить" Width="80" Margin="0,0,0,5"
+                        <Button x:Name="UpdateAssetButton" Content="Обновить" Width="80" Height="20" Margin="0,0,0,5"
                                 Style="{StaticResource CustomButtonStyle}" Click="UpdateAssetButton_Click"/>
-                        <Button x:Name="DeleteAssetButton" Content="Удалить" Width="80"
+                        <Button x:Name="DeleteAssetButton" Content="Удалить" Width="80" Height="20"
                                 Style="{StaticResource CustomButtonStyle}" Click="DeleteAssetButton_Click"/>
                     </StackPanel>
                 </StackPanel>

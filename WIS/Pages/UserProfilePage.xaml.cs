@@ -110,5 +110,10 @@ namespace WIS.Pages
         {
             AppFrame.frameMain.Navigate(new AssetPage(current_user));
         }
+
+        private void Bt_goRequest_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new RequestPage(current_user));
+        }
     }
 }

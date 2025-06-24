@@ -82,8 +82,8 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical" Margin="5,0" Width="70">
-                    <TextBlock Text="Роль:" Margin="0,0,0,3"/>
-                    <ComboBox x:Name="RoleComboBox" DisplayMemberPath="user_role_name" SelectedValuePath="ID_user_role" SelectedValue="{Binding SelectedUser.user_role_ID, Mode=TwoWay}" Width="200" />
+                    <TextBlock Text="Роль:" Margin="0,0,0,7"/>
+                    <ComboBox x:Name="RoleComboBox" DisplayMemberPath="user_role_name" SelectedValuePath="ID_user_role" SelectedValue="{Binding SelectedUser.user_role_ID, Mode=TwoWay}" Width="200" Height="30"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical" Margin="5,0" Width="130">
@@ -93,9 +93,9 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Bottom">
-                <Button x:Name="AddUserButton" Content="Добавить" Width="80" Margin="0,0,0,5" Style="{StaticResource CustomButtonStyle}" Click="AddUserButton_Click"/>
-                <Button x:Name="UpdateUserButton" Content="Обновить" Width="80" Margin="5,0,0,5" Style="{StaticResource CustomButtonStyle}" Click="UpdateUserButton_Click"/>
-                <Button x:Name="DeleteUserButton" Content="Удалить" Width="80" Margin="5,0,0,5" Style="{StaticResource CustomButtonStyle}" Click="DeleteUserButton_Click"/>
+                <Button x:Name="AddUserButton" Content="Добавить" Width="80" Height="30" Margin="0,0,0,5" Style="{StaticResource CustomButtonStyle}" Click="AddUserButton_Click"/>
+                <Button x:Name="UpdateUserButton" Content="Обновить" Width="80" Height="30" Margin="5,0,0,5" Style="{StaticResource CustomButtonStyle}" Click="UpdateUserButton_Click"/>
+                <Button x:Name="DeleteUserButton" Content="Удалить" Width="80" Height="30" Margin="5,0,0,5" Style="{StaticResource CustomButtonStyle}" Click="DeleteUserButton_Click"/>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -55,19 +55,19 @@
             <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,10,0">
                 <Button x:Name="userDisplay" Content="Профиль" 
                         Style="{StaticResource CustomButtonStyle}"
-                        Margin="0,5" Click="userDisplay_Click"/>
+                        Margin="0,5" Click="userDisplay_Click" Width="180" Height="30"/>
 
                 <Button x:Name="addButton" Content="Добавить" 
                         Style="{StaticResource CustomButtonStyle}"
-                        Margin="0,5" Click="addButton_Click"/>
+                        Margin="0,5" Click="addButton_Click" Width="180" Height="30"/>
 
                 <Button x:Name="editButton" Content="Редактировать" 
                         Style="{StaticResource CustomButtonStyle}"
-                        Margin="0,5" Click="editButton_Click"/>
+                        Margin="0,5" Click="editButton_Click" Width="180" Height="30"/>
 
                 <Button x:Name="bt_go_request" Content="Заявки" 
                         Style="{StaticResource CustomButtonStyle}"
-                        Margin="0,5" Click="bt_go_request_Click"/>
+                        Margin="0,5" Click="bt_go_request_Click" Width="180" Height="30"/>
             </StackPanel>
 
             <!-- Список оборудования -->

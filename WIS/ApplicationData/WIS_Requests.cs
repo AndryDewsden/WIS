@@ -11,7 +11,8 @@ namespace WIS.ApplicationData
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class WIS_Requests
     {
         public int ID_request { get; set; }
@@ -27,5 +28,37 @@ namespace WIS.ApplicationData
         public virtual WIS_Request_Statuses WIS_Request_Statuses { get; set; }
         public virtual WIS_Users WIS_Users { get; set; }
         public virtual WIS_Users WIS_Users1 { get; set; }
+
+        public string RequestCreatorUser
+        {
+            get
+            {
+                return $"{AppConnect.Model.WIS_Users.First(x => x.ID_user == request_user_ID).user_firstname} {AppConnect.Model.WIS_Users.First(x => x.ID_user == request_user_ID).user_lastname}";
+            }
+        }
+
+        public string RequestAproveDate
+        {
+            get
+            {
+                if (request_status_ID != 1)
+                {
+                    return $"{request_approval_date}";
+                }
+                return "Нет ответа";
+            }
+        }
+
+        public string RequestAproveUser
+        {
+            get
+            {
+                if (request_approved_by_user_ID != null)
+                {
+                    return $"{AppConnect.Model.WIS_Users.First(x => x.ID_user == request_approved_by_user_ID).user_firstname} {AppConnect.Model.WIS_Users.First(x => x.ID_user == request_approved_by_user_ID).user_lastname}";
+                }
+                return "Нет ответа";
+            }
+        }
     }
 }

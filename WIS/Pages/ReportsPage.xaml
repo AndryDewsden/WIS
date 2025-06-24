@@ -31,7 +31,7 @@
                      TextChanged="FilterTextBox_TextChanged"/>
             <Button Content="Обновить" 
                     Style="{StaticResource CustomButtonStyle}" 
-                    Click="RefreshButton_Click" Margin="10,0,0,0"/>
+                    Click="RefreshButton_Click" Margin="10,0,0,0" Height="30" Width="160"/>
         </StackPanel>
 
         <!-- Таблица отчётов -->
@@ -60,7 +60,7 @@
         <!-- Кнопка создания отчёта -->
         <Border Grid.Row="2" Background="#E6F0FA" CornerRadius="5" Padding="10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Создать отчёт" Width="140"
+                <Button Content="Создать отчёт" Width="140" Height="30"
                         Style="{StaticResource CustomButtonStyle}"
                         Click="CreateReportButton_Click"/>
             </StackPanel>

@@ -18,11 +18,11 @@
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
                     <Grid Width="250" Margin="5,0">
-                        <TextBox x:Name="Searcher" VerticalContentAlignment="Center" Style="{StaticResource {x:Type TextBox}}" Margin="5,0,0,0" TextChanged="Searcher_TextChanged" LostFocus="Searcher_LostFocus"/>
-                        <TextBox x:Name="SearcherPlaceHolder" Text="Поиск..." Foreground="Gray" IsHitTestVisible="True" VerticalContentAlignment="Center" Margin="5,0,0,0" GotFocus="SearcherPlaceHolder_GotFocus"/>
+                        <TextBox x:Name="Searcher" VerticalContentAlignment="Center" Style="{StaticResource {x:Type TextBox}}" Margin="5,0,0,0" Height="30" TextChanged="Searcher_TextChanged" LostFocus="Searcher_LostFocus"/>
+                        <TextBox x:Name="SearcherPlaceHolder" Text="Поиск..." Foreground="Gray" IsHitTestVisible="True" VerticalContentAlignment="Center" Margin="5,0,0,0" Height="30" GotFocus="SearcherPlaceHolder_GotFocus"/>
                     </Grid>
 
-                    <ComboBox x:Name="Filter" Width="250" Margin="5,0"
+                    <ComboBox x:Name="Filter" Width="250" Height="30" Margin="5,0"
                           Style="{StaticResource {x:Type ComboBox}}"
                           SelectedIndex="0" SelectionChanged="Filter_SelectionChanged">
                         <ComboBoxItem>Все заявки</ComboBoxItem>
@@ -33,12 +33,12 @@
                     </ComboBox>
 
                     <TextBlock Text="Фильтр по дате:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <ComboBox x:Name="DateFilterType" Width="150" Margin="0,0,10,0" SelectedIndex="0" SelectionChanged="DateFilterType_SelectionChanged">
+                    <ComboBox x:Name="DateFilterType" Width="150" Height="30" Margin="0,0,10,0" SelectedIndex="0" SelectionChanged="DateFilterType_SelectionChanged">
                         <ComboBoxItem Content="Дата создания"/>
                         <ComboBoxItem Content="Дата одобрения"/>
                     </ComboBox>
 
-                    <Button Content="Сбросить фильтр" Click="ResetFilter_Click" />
+                    <Button Content="Сбросить фильтр" Click="ResetFilter_Click" Style="{StaticResource CustomButtonStyle}" Margin="0,5" Width="180" Height="30"/>
 
                     <TextBlock x:Name="Counter" Margin="10,0" Foreground="White" 
                            VerticalAlignment="Center" FontSize="14"/>
@@ -57,23 +57,28 @@
             <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,10,0">
                 <Button x:Name="userDisplay" Content="Профиль" 
                         Style="{StaticResource CustomButtonStyle}"
-                        Margin="0,5" Click="userDisplay_Click"/>
+                        Margin="0,5" Click="userDisplay_Click"
+                        Width="180" Height="30"/>
 
                 <Button x:Name="addButton" Content="Создать заявку" 
                         Style="{StaticResource CustomButtonStyle}"
-                        Margin="0,5" Click="addButton_Click"/>
+                        Margin="0,5" Click="addButton_Click"
+                        Width="180" Height="30"/>
 
                 <Button x:Name="approveButton" Content="Одобрить" 
                         Style="{StaticResource CustomButtonStyle}"
-                        Margin="0,5" Click="approveButton_Click" Visibility="Collapsed"/>
+                        Margin="0,5" Click="approveButton_Click" Visibility="Collapsed"
+                        Width="180" Height="30"/>
 
                 <Button x:Name="rejectButton" Content="Отклонить" 
                         Style="{StaticResource CustomButtonStyle}"
-                        Margin="0,5" Click="rejectButton_Click" Visibility="Collapsed"/>
+                        Margin="0,5" Click="rejectButton_Click" Visibility="Collapsed"
+                        Width="180" Height="30"/>
 
-                <Button x:Name="bt_go_assets" Content="Оборудование" 
+                <Button x:Name="bt_go_assets" Content="Список активов" 
                         Style="{StaticResource CustomButtonStyle}"
-                        Margin="0,5" Click="bt_go_assets_Click"/>
+                        Margin="0,5" Click="bt_go_assets_Click"
+                        Width="180" Height="30"/>
             </StackPanel>
 
             <!-- Список заявок -->
@@ -90,7 +95,7 @@
                                 <Setter Property="Background" Value="#E6F2FF"/>
                             </Trigger>
                             <DataTrigger Binding="{Binding request_status_ID}" Value="1">
-                                <Setter Property="Background" Value="#FFF0F0"/>
+                                <Setter Property="Background" Value="#FFFEE6"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding request_status_ID}" Value="2">
                                 <Setter Property="Background" Value="#F0FFF0"/>
@@ -107,10 +112,10 @@
                         <Border BorderThickness="0,0,0,1" BorderBrush="#4682B4" Padding="10">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="210"/>
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel Grid.Column="0">
@@ -128,26 +133,26 @@
                                 <StackPanel Grid.Column="1">
                                     <TextBlock>
                                         <Run Text="Статус: " FontWeight="Bold"/>
-                                        <Run Text="{Binding WIS_Request_Statuses.status_name}"/>
+                                        <Run Text="{Binding WIS_Request_Statuses.request_status_name}"/>
                                     </TextBlock>
                                     <TextBlock>
-                                        <Run Text="Дата: " FontWeight="Bold"/>
+                                        <Run Text="Дата создания: " FontWeight="Bold"/>
                                         <Run Text="{Binding request_date, StringFormat={}{0:dd.MM.yyyy HH:mm}}"/>
                                     </TextBlock>
                                     <TextBlock>
                                         <Run Text="Одобрил: " FontWeight="Bold"/>
-                                        <Run Text="{Binding WIS_Users.user_firstname}" />
+                                        <Run Text="{Binding RequestAproveUser, Mode=OneWay}" />
                                     </TextBlock>
                                     <TextBlock>
-                                        <Run Text="Дата одобрения: " FontWeight="Bold"/>
-                                        <Run Text="{Binding request_approval_date, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                                        <Run Text="Дата ответа: " FontWeight="Bold"/>
+                                        <Run Text="{Binding RequestAproveDate, StringFormat={}{0:dd.MM.yyyy HH:mm}, Mode=OneWay}" />
                                     </TextBlock>
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="2">
                                     <TextBlock>
                                         <Run Text="Сотрудник: " FontWeight="Bold"/>
-                                        <Run Text="{Binding WIS_Users.user_firstname}"/>
+                                        <Run Text="{Binding RequestCreatorUser, Mode=OneWay}"/>
                                     </TextBlock>
                                     <TextBlock>
                                         <Run Text="Отдел: " FontWeight="Bold"/>

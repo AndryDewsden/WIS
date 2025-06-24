@@ -46,29 +46,30 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Название отчета -->
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Название отчета:" 
-                           Margin="0,0,10,10" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="0" Grid.Column="1" x:Name="ReportNameTextBox" 
-                         Margin="0,0,0,10" Height="25" TextChanged="ReportNameTextBox_TextChanged"
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="Название отчета:" 
+                           Margin="5,5,10,10" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Grid.Column="1" x:Name="ReportNameTextBox" 
+                         Margin="5,5,5,5" Height="30" Width="320" TextChanged="ReportNameTextBox_TextChanged" HorizontalAlignment="Left"
                          Style="{StaticResource InputFieldStyle}"/>
 
                 <!-- Быстрый выбор периода -->
                 <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" Margin="10,0,0,10">
                     <TextBlock Text="Быстрый выбор:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <ComboBox x:Name="DateRangeComboBox" Width="120" SelectionChanged="DateRangeComboBox_SelectionChanged"
-                              Style="{StaticResource InputFieldStyle}">
-                        <ComboBoxItem Content="Сегодня" IsSelected="True"/>
-                        <ComboBoxItem Content="Неделя"/>
-                        <ComboBoxItem Content="Месяц"/>
-                        <ComboBoxItem Content="Квартал"/>
-                        <ComboBoxItem Content="Год"/>
-                    </ComboBox>
                 </StackPanel>
 
+                <ComboBox x:Name="DateRangeComboBox" Width="120" Grid.Row="1" Margin="5,5,5,5" Grid.Column="2" SelectionChanged="DateRangeComboBox_SelectionChanged"
+                              Style="{StaticResource InputFieldStyle}">
+                    <ComboBoxItem Content="Сегодня" IsSelected="True"/>
+                    <ComboBoxItem Content="Неделя"/>
+                    <ComboBoxItem Content="Месяц"/>
+                    <ComboBoxItem Content="Квартал"/>
+                    <ComboBoxItem Content="Год"/>
+                </ComboBox>
+
                 <!-- Тип отчета -->
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Тип отчета:" 
-                           Margin="0,0,10,10" VerticalAlignment="Center"/>
-                <ComboBox x:Name="ReportTypeComboBox" Margin="0,0,0,10" Height="25" SelectionChanged="ReportTypeComboBox_SelectionChanged" Style="{StaticResource InputFieldStyle}" />
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Тип отчета:" 
+                           Margin="0,5,10,10" VerticalAlignment="Center"/>
+                <ComboBox x:Name="ReportTypeComboBox" Margin="0,5,0,5" Grid.Row="1" Height="30" Width="260" SelectionChanged="ReportTypeComboBox_SelectionChanged" Style="{StaticResource InputFieldStyle}" />
 
                 <!-- Параметры выборки -->
                 <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 

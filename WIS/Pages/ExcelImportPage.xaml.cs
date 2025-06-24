@@ -19,19 +19,20 @@ using System.Windows.Shapes;
 using WIS.ApplicationData;
 using ClosedXML.Excel;
 using System.Data.Entity.Validation;
+using System.Security.Cryptography;
 
 namespace WIS.Pages
 {
     public partial class ExcelImportPage : Page
     {
         private readonly Dictionary<int, int> roleHierarchy = new Dictionary<int, int>
-{
-    { 1, 5 }, // Администратор
-    { 5, 4 }, // IT-Специалист
-    { 2, 3 }, // Менеджер
-    { 4, 2 }, // Бухгалтер
-    { 3, 1 }  // Пользователь
-};
+        {
+            { 1, 5 }, // Администратор
+            { 5, 4 }, // IT-Специалист
+            { 2, 3 }, // Менеджер
+            { 4, 2 }, // Бухгалтер
+            { 3, 1 }  // Пользователь
+        };
 
         private WIS_Users currentUser;
         private DataTable excelTable;
@@ -70,12 +71,25 @@ namespace WIS.Pages
         }
 
         private readonly Dictionary<string, List<string>> expectedColumns = new Dictionary<string, List<string>>()
-{
-    { "Пользователи", new List<string> { "user_firstname", "user_lastname", "user_login", "user_password_hash", "user_email", "user_role_ID" } },
-    { "Активы", new List<string> { "asset_name", "asset_model", "asset_serial_number", "asset_type_ID", "asset_purchase_date", "asset_purchase_price", "asset_warranty_expiration_date", "asset_note", "asset_status_ID", "asset_location_ID", "asset_user_ID" } },
-    { "Заявки", new List<string> { "request_asset_ID", "request_user_ID", "request_date", "request_status_ID", "request_approved_by_user_ID", "request_approval_date", "request_note" } }
-};
+        {
+            { "Пользователи", new List<string> { "user_firstname", "user_lastname", "user_login", "user_password_hash", "user_email", "user_role_ID" } },
+            { "Активы", new List<string> { "asset_name", "asset_model", "asset_serial_number", "asset_type_ID", "asset_purchase_date", "asset_purchase_price", "asset_warranty_expiration_date", "asset_note", "asset_status_ID", "asset_location_ID", "asset_user_ID" } },
+            { "Заявки", new List<string> { "request_asset_ID", "request_user_ID", "request_date", "request_status_ID", "request_approved_by_user_ID", "request_approval_date", "request_note" } }
+        };
 
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha = SHA256.Create())
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(password);
+                byte[] hashBytes = sha.ComputeHash(bytes);
+                // Преобразуем байты в шестнадцатеричную строку
+                StringBuilder sb = new StringBuilder();
+                foreach (var b in hashBytes)
+                    sb.Append(b.ToString("x2"));
+                return sb.ToString();
+            }
+        }
         private void BtnHelp_Click(object sender, RoutedEventArgs e)
         {
             string selectedTable = (comboTargetTable.SelectedItem as ComboBoxItem)?.Content.ToString();
@@ -175,6 +189,7 @@ namespace WIS.Pages
             foreach (DataRow row in excelTable.Rows)
             {
                 string login = row["user_login"].ToString();
+                string plainPassword = row["user_password_hash"].ToString();
 
                 int newRoleId = int.Parse(row["user_role_ID"].ToString());
 
@@ -186,11 +201,13 @@ namespace WIS.Pages
 
                 var existingUser = AppConnect.Model.WIS_Users.FirstOrDefault(u => u.user_login == login);
 
+                string hashedPassword = HashPassword(plainPassword.Trim());
+
                 if (existingUser != null)
                 {
                     existingUser.user_firstname = row["user_firstname"].ToString();
                     existingUser.user_lastname = row["user_lastname"].ToString();
-                    existingUser.user_password_hash = row["user_password_hash"].ToString().Trim().ToLower();
+                    existingUser.user_password_hash = hashedPassword;
                     existingUser.user_email = row["user_email"].ToString();
                     existingUser.user_role_ID = newRoleId;
                 }
@@ -201,7 +218,7 @@ namespace WIS.Pages
                         user_firstname = row["user_firstname"].ToString(),
                         user_lastname = row["user_lastname"].ToString(),
                         user_login = login,
-                        user_password_hash = row["user_password_hash"].ToString().Trim().ToLower(),
+                        user_password_hash = hashedPassword,
                         user_email = row["user_email"].ToString(),
                         user_role_ID = newRoleId
                     };
@@ -209,6 +226,7 @@ namespace WIS.Pages
                 }
             }
         }
+
 
         private void ImportAssets()
         {
